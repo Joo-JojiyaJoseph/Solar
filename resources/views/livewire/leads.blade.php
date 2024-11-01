@@ -34,9 +34,9 @@
                                         <td>{{ $lead->status }}</td>
 
                                         <td>
-                                            @if(auth()->check() && auth()->user()->type != 'technician'&& $lead->staus=='new')
-                                            <button type="button" class="btn btn-primary btn-block mb-2" data-toggle="modal"
-                                                data-target="#edit{{ $lead->id }}">Edit</button>
+                                            @if($user->type != 'technician'&& $lead->status=='new')
+                                            {{-- <button type="button" class="btn btn-primary btn-block mb-2" data-toggle="modal"
+                                                data-target="#edit{{ $lead->id }}">Edit</button> --}}
                                                 <a href=""><button type="button" class="btn btn-primary btn-block">Assign</button></a>
                                             @endif
                                         </td>
