@@ -1,5 +1,5 @@
  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                <div class="table-container">
+         <div class="table-container">
                     <div class="table-responsive">
                         <table id="copy-print-csv" class="table custom-table">
                             <thead>
@@ -34,10 +34,10 @@
                                         <td>{{ $lead->status }}</td>
 
                                         <td>
-                                            @if(auth()->user()->type=='admin' || auth()->user()->type=='branch')
+                                            @if(auth()->check() && auth()->user()->type != 'technician'&& $lead->staus=='new')
                                             <button type="button" class="btn btn-primary btn-block mb-2" data-toggle="modal"
                                                 data-target="#edit{{ $lead->id }}">Edit</button>
-                                                <a href=""><button type="button" class="btn btn-primary btn-block">button</button></a>
+                                                <a href=""><button type="button" class="btn btn-primary btn-block">Assign</button></a>
                                             @endif
                                         </td>
 

@@ -12,7 +12,9 @@ class Leads extends Component
     public $status;
 
 
+
      public function loadleads(){
+        
         $this->leads = Lead::orderBy('id', 'desc')->get();
      }
 
