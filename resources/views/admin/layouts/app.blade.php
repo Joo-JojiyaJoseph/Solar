@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="{{ asset('admin_assets/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('admin_assets/fonts/style.css') }}">
     <link rel="stylesheet" href="{{ asset('admin_assets/css/main.css') }}">
+    <link href="{{ asset('css/tailwind.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('admin_assets/vendor/datatables/dataTables.bs4.css') }}" />
     <link rel="stylesheet" href="{{ asset('admin_assets/vendor/datatables/dataTables.bs4-custom.css') }}" />
     <link href="{{ asset('admin_assets/vendor/datatables/buttons.bs.css') }}" rel="stylesheet" />

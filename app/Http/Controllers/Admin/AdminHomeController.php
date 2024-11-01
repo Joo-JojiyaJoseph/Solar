@@ -3,18 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Admin\Account;
-use App\Models\Admin\Brand;
-use App\Models\Admin\Category;
-use App\Models\Admin\Color;
-use App\Models\Admin\CouponCode;
-use App\Models\Admin\Product;
-use App\Models\Admin\Size;
-use App\Models\Admin\SubCategory;
-use App\Models\Review;
-use App\Models\User;
-use App\Models\UserOrder;
-use App\Models\Admin\Game;
+use App\Models\Admin\Lead;
 
 class AdminHomeController extends Controller
 {
@@ -22,9 +11,9 @@ class AdminHomeController extends Controller
     {
         if($home == '') {
             $count = [
-
+                $total=count(Lead::Orderby('id', 'desc')->get()),
             ];
-            return view('admin.home-web', compact('count'));
+            return view('admin.home', compact('count'));
         }
         if($home == 'web') {
             $count = [

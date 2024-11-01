@@ -8,49 +8,56 @@
     <meta name="author" content="{{ config('app.name') }}">
     <title>{{ config('app.name') }} - Admin</title>
     <link rel="stylesheet" href="{{ asset('admin_assets/css/bootstrap.min.css') }}">
+    <link href="{{ asset('css/tailwind.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('admin_assets/css/main.css') }}">
     <!-- favicon -->
     <link rel="shortcut icon" href="{{ asset('/storage/images/favicon.png') }}">
 </head>
 
-<body class="authentication">
-    <div class="container">
-        <div class="row justify-content-md-center">
-            <div class="col-xl-4 col-lg-5 col-md-6 col-sm-12">
-                <div class="login-screen">
-                    <div class="login-box text-center">
-                        @include('admin.layouts.alert')
-
-                        <a href="{{ route('admin.login') }}" class="login-logo mb-1">
-                            <img src="{{ asset('/storage/uploads/logo/' . $logo->image) }}" alt="{{ config('app.name') }}" />
-                        </a>
-                        <h5>Welcome back,<br />Please Login to Admin Account.</h5>
-                        <form  action="{{ route('admin.login') }}" method="post">
-                            @csrf
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Username" name="username" value="{{ old('username') }}" required>
-                                @error('username')<span class="text-danger">{{ $message }}</span>@enderror
-                            </div>
-                            <div class="form-group">
-                                <input type="password" class="form-control" placeholder="Password" name="password" value="{{ old('password') }}" required>
-                                @error('password')<span class="text-danger">{{ $message }}</span>@enderror
-                            </div>
-
-                            {{-- <div class="form-group mb-2">
-                                <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" id="remember_pwd" name="remember">
-                                    <label class="custom-control-label" for="remember_pwd">Remember me</label>
-                                </div>
-                            </div> --}}
-
-                            <div class="form-group">
-                                <button type="submit" class="btn btn-success btn-block">Login</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
+<body class="">
+ <div class="">
+<div class="bg-gray-100 min-h-screen flex items-center justify-center">
+    <!-- Background Image -->
+    <div class="absolute inset-0 z-0">
+        <img src="{{ asset('/storage/img/admin_login.jpg') }} " alt=""
+            class="w-full h-full object-cover filter blur-lg brightness-50">
     </div>
+    @include('admin.layouts.alert')
+
+
+    <!-- Login Form -->
+    <div class="relative z-10 bg-white p-8 rounded-md shadow-lg justify-center w-25">
+        <a href="{{ route('admin.login') }}" class="login-logo mb-1 justify-center flex mx-auto">
+            <img src="{{ asset('/storage/uploads/logo/' . $logo->image) }}" style="width: 70px;" alt="{{ config('app.name') }}" />
+        </a>
+        <h1 class="text-xl font-bold mb-4 text-center">Login</h1>
+        <form  action="{{ route('admin.login') }}" method="post">
+            @csrf
+            <div class="mb-4">
+                <label class="block text-gray-700 font-bold mb-2" for="username">UserName</label>
+                <input
+                    class="appearance-none border rounded-md py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline w-full"
+                     type="text" name="username" value="{{ old('username') }}" required>
+                     @error('username')<span class="text-danger">{{ $message }}</span>@enderror
+            </div>
+            <div class="mb-4">
+                <label class="block text-gray-700 font-bold mb-2" for="password">Password</label>
+                <input
+                    class="appearance-none border rounded-md py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline w-full"
+                    id="password" type="password" name="password" value="{{ old('password') }}" required>
+                    @error('password')<span class="text-danger">{{ $message }}</span>@enderror
+            </div>
+            <div class="flex items-center justify-between gap-8">
+                <button
+                    class="bg-cyan-500 hover:bg-cyan-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                    type="submit">
+                    Sign In
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+</div>
 </body>
+
 </html>
