@@ -11,7 +11,7 @@ class AdminHomeController extends Controller
     {
         if($home == '') {
             $count = [
-                $total=count(Lead::Orderby('id', 'desc')->get()),
+                'total' => Lead::count(),
             ];
             return view('admin.home', compact('count'));
         }

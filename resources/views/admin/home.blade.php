@@ -15,7 +15,7 @@
             <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 col-12">
                     <div class="info-stats2">
                         <div class="info-icon danger"><i class="icon-layers2"></i></div>
-                        <div class="sale-num"><h3 class="text-2xl">Total Orders({$count['total']})</h3><p>Branch</p></div>
+                        <div class="sale-num"><h3 class="text-2xl">Total Orders ({{$count['total']}})</h3><p>Branch</p></div>
                     </div>
             </div>
             <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 col-12">
