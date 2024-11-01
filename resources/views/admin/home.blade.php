@@ -15,31 +15,32 @@
             <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 col-12">
                     <div class="info-stats2">
                         <div class="info-icon danger"><i class="icon-layers2"></i></div>
-                        <div class="sale-num"><h3 class="text-2xl">Total Orders ({{$count['total']}})</h3><p>Branch</p></div>
+                        {{-- <div class="sale-num"><h3 class="text-2xl">Total Orders ({{$count['total']}})</h3><p>Branch</p></div> --}}
+                        <div class="sale-num"><h3 class="text-2xl">Total Orders </h3><p>Orders</p></div>
                     </div>
             </div>
             <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 col-12">
                 <div class="info-stats2">
                     <div class="info-icon danger"><i class="icon-layers2"></i></div>
-                    <div class="sale-num"><h3 class="text-2xl">New Orders</h3><p>Branch</p></div>
+                    <div class="sale-num"><h3 class="text-2xl">New Orders</h3><p>Orders</p></div>
                 </div>
             </div>
             <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 col-12">
                 <div class="info-stats2">
                     <div class="info-icon danger"><i class="icon-layers2"></i></div>
-                    <div class="sale-num"><h3 class="text-2xl">Pending Orders</h3><p>Branch</p></div>
+                    <div class="sale-num"><h3 class="text-2xl">Pending Orders</h3><p>Orders</p></div>
                 </div>
             </div>
             <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 col-12">
                 <div class="info-stats2">
                     <div class="info-icon danger"><i class="icon-layers2"></i></div>
-                    <div class="sale-num"><h3 class="text-2xl">working Orders</h3><p>Branch</p></div>
+                    <div class="sale-num"><h3 class="text-2xl">working Orders</h3><p>Orders</p></div>
                 </div>
             </div>
             <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 col-12">
                 <div class="info-stats2">
                     <div class="info-icon danger"><i class="icon-layers2"></i></div>
-                    <div class="sale-num"><h3 class="text-2xl">Completed Orders</h3><p>Branch</p></div>
+                    <div class="sale-num"><h3 class="text-2xl">Completed Orders</h3><p>Orders</p></div>
                 </div>
             </div>
             <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 col-12 d-flex justify-content-center align-items-center">
@@ -87,8 +88,15 @@
                 </a>
             </div>
 
+            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-12">
+                <a href="{{route('lead.index')}}">
+                    <div class="info-stats2">
+                        <div class="info-icon danger"><i class="icon-layers2"></i></div>
+                        <div class="sale-num"><h3 class="text-xl">Leads</h3><p>Leads</p></div>
+                    </div>
+                </a>
+            </div>
+
         </div>
-
     </div>
-
 @endsection

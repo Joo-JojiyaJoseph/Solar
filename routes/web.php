@@ -28,8 +28,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin']], function(){
     Route::get('home/{type?}', [Admin\AdminHomeController::class, 'index'])->name('dashboard');
     Route::resource('branch', Admin\BranchController::class, ['names' => 'branch']);
     Route::resource('technician', Admin\TechnicianController::class, ['names' => 'technician']);
-    Route::get('/lead/create', [Admin\LeadsController::class, 'create'])->name('lead.create');
-    Route::post('/lead/store', [Admin\LeadsController::class, 'store'])->name('lead.store');
+    Route::resource('leads', Admin\LeadsController::class, ['names' => 'lead']);
 
 
 
