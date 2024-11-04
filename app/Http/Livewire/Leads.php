@@ -17,15 +17,22 @@ class Leads extends Component
     public $technician_id;
 
     public $selectedLeadId;
+    public $selectedStatus = null;
 
 
 
      public function loadleads(){
         $id = auth()->guard('admin')->user()->id;
         $this->user = Admin::find($id);
+        if ($this->selectedStatus) {
+            $this->leads = Lead::where('status',$this->selectedStatus)->orderBy('id', 'desc')->get();
+        }
+        else{
         $this->leads = Lead::orderBy('id', 'desc')->get();
+        }
         $this->technicians = Admin::orderBy('id', 'desc')->where('type','technician')->get();
      }
+
      public function assignTechnician($leadId)
      {
         $this->selectedLeadId=$leadId;

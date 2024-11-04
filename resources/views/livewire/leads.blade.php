@@ -1,4 +1,19 @@
+
 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+    <div class="d-flex justify-content-end"> <!-- Use Flexbox to align items to the right -->
+        <div class="mb-3 w-25"> <!-- Remove text-write class as it was a typo -->
+            <label for="statusFilter">Filter by Status:</label>
+            <select id="statusFilter" wire:model="selectedStatus" class="form-control"> <!-- Set width -->
+                <option value="">All</option>
+                <option value="new">New</option>
+                <option value="pending">Pending</option>
+                <option value="working">Working</option>
+                <option value="completed">Completed</option>
+            </select>
+        </div>
+    </div>
+
+
     <div class="table-container">
         <div class="table-responsive">
             <table id="copy-print-csv" class="table custom-table">
