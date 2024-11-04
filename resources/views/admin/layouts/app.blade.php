@@ -18,7 +18,8 @@
     <link rel="stylesheet" href="{{ asset('admin_assets/vendor/summernote/summernote-bs4.css') }}" />
     <!-- favicon -->
     <link rel="shortcut icon" href="">
-
+    <script src="//unpkg.com/alpinejs" defer></script>
+    @livewireStyles
 </head>
 
 <body>
@@ -221,6 +222,9 @@
     </script>
 
     <script src="{{ asset('admin_assets/js/main.js') }}"></script>
+
+
+    @livewireScripts
 </body>
 
 </html>

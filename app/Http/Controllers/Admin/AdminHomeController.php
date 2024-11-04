@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Admin\Admin;
 use App\Models\Admin\Lead;
 
 class AdminHomeController extends Controller
@@ -12,6 +13,13 @@ class AdminHomeController extends Controller
         if($home == '') {
             $count = [
                 'total' => Lead::count(),
+                'new' => count(Lead::where('status','new')->get()),
+                'pending' => count(Lead::where('status','pending')->get()),
+                'working' => count(Lead::where('status','working')->get()),
+                'completed' => count(Lead::where('status','completed')->get()),
+                'branch' => count(Admin::where('type','branch')->get()),
+                'technician' => count(Admin::where('type','technician')->get()),
+
             ];
             return view('admin.home', compact('count'));
         }
