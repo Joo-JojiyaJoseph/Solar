@@ -43,14 +43,17 @@
                     <div class="sale-num"><h3 class="text-2xl">Completed Orders ({{$count['completed']}})</h3><p>Orders</p></div>
                 </div>
             </div>
+            @if($user->type!=="technician")
             <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 col-12 d-flex justify-content-center align-items-center">
                <a href="{{route('lead.create')}}"> <button class="rounded-lg px-4 py-4 bg-gray-200 hover:bg-gray-300 duration-300 text-blue-500 text-2xl font-extrabold">
                     Lead Entry Form
                 </button></a>
             </div>
+            @endif
         </div>
 
         <div class="row p-5">
+            @if($user->type!=="technician")
             <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-12">
                 <a href="{{ route('branch.index') }}">
                     <div class="info-stats2">
@@ -87,6 +90,7 @@
                     </div>
                 </a>
             </div>
+            @endif
 
             <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-12">
                 <a href="{{route('lead.index')}}">

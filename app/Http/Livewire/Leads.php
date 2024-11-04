@@ -24,12 +24,28 @@ class Leads extends Component
      public function loadleads(){
         $id = auth()->guard('admin')->user()->id;
         $this->user = Admin::find($id);
-        if ($this->selectedStatus) {
+
+        if ($this->user->type=="branch" ) {
+
+            $this->leads = Lead::where('branch',$this->user->id)->orderBy('id', 'desc')->get();
+        }
+        elseif ($this->selectedStatus && $this->user->type=="branch" ) {
+            $this->leads = Lead::where('status',$this->selectedStatus)->where('branch',$this->user->id)->orderBy('id', 'desc')->get();
+        }
+
+        elseif ($this->user->type=="technician" ) {
+            $this->leads = Lead::where('technician',$this->user->id)->orderBy('id', 'desc')->get();
+        }
+        elseif ($this->selectedStatus && $this->user->type=="technician" ) {
+            $this->leads = Lead::where('status',$this->selectedStatus)->where('technician',$this->user->id)->orderBy('id', 'desc')->get();
+        }
+        elseif ($this->selectedStatus) {
             $this->leads = Lead::where('status',$this->selectedStatus)->orderBy('id', 'desc')->get();
         }
         else{
         $this->leads = Lead::orderBy('id', 'desc')->get();
         }
+
         $this->technicians = Admin::orderBy('id', 'desc')->where('type','technician')->get();
      }
 
