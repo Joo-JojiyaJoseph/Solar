@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lead Form</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.3.2/dist/tailwind.min.css" rel="stylesheet">
 </head>
 
 <body class="bg-gray-100 flex justify-center items-center min-h-screen">
@@ -81,23 +82,65 @@
 
             <div>
                 <label class="block text-gray-700 font-semibold">Service</label>
-                <select name="service"
+                <select name="service" id="service"
                     class="w-full px-3 py-2 mt-1 border rounded-lg focus:ring-2 focus:ring-blue-400 transition duration-300">
-                    <option>New Solar Buy</option>
-                    <option>Maintenance & Service</option>
-                    <option>Replacement</option>
+                    <option value="">Select Service</option>
+                    @foreach ($services as $service)
+                        <option value="{{ $service->id }}">{{ $service->name }}</option>
+                    @endforeach
                 </select>
             </div>
 
             <div>
                 <label class="block text-gray-700 font-semibold">Sub Service</label>
-                <select name="sub_service"
+                <select name="sub_service" id="sub_service"
                     class="w-full px-3 py-2 mt-1 border rounded-lg focus:ring-2 focus:ring-blue-400 transition duration-300">
-                    <option>Not Working</option>
-                    <option>Battery Damage</option>
-                    <option>Solar Panel Repair</option>
+                    <option value="">Select Sub Service</option>
                 </select>
             </div>
+
+            <script>
+               document.addEventListener('DOMContentLoaded', function () {
+    const serviceSelect = document.querySelector('select[name="service"]');
+    const subServiceSelect = document.querySelector('select[name="sub_service"]');
+
+    serviceSelect.addEventListener('change', function () {
+        const serviceId = this.value;
+
+        // Clear existing subservices
+        subServiceSelect.innerHTML = '<option value="">Select Sub Service</option>';
+
+        if (serviceId) {
+            fetch(`/subservices/${serviceId}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`Network response was not ok: ${response.statusText}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.length === 0) {
+                        const noOption = document.createElement('option');
+                        noOption.textContent = 'No subservices available';
+                        subServiceSelect.appendChild(noOption);
+                    } else {
+                        data.forEach(subservice => {
+                            const option = document.createElement('option');
+                            option.value = subservice.id; // Adjust if needed based on your model fields
+                            option.textContent = subservice.title; // Assuming 'name' is the field to display
+                            subServiceSelect.appendChild(option);
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.error('Fetch operation error:', error);
+                });
+        }
+    });
+});
+
+            </script>
+
 
             <div>
                 <label class="block text-gray-700 font-semibold">Comments</label>

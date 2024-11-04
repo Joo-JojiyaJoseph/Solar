@@ -22,6 +22,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/admin', [Admin\AdminController::class, 'index'])->name('admin.login');
 Route::post('/admin', [Admin\AdminController::class, 'login'])->name('admin.login');
 Route::get('/admin-logout', [Admin\AdminController::class, 'logout'])->name('admin.logout');
+Route::get('subservices/{serviceId}', [Admin\SubServiceController::class, 'getSubServices']);
 
 Route::group(['prefix' => 'admin', 'middleware' => ['admin']], function(){
     Route::resource('profile', Admin\ProfileController::class, ['names' => 'profile']);
@@ -29,7 +30,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin']], function(){
     Route::resource('branch', Admin\BranchController::class, ['names' => 'branch']);
     Route::resource('technician', Admin\TechnicianController::class, ['names' => 'technician']);
     Route::resource('leads', Admin\LeadsController::class, ['names' => 'lead']);
-
+    Route::resource('services', Admin\ServiceController::class, ['names' => 'services']);
+    Route::resource('subservices', Admin\SubServiceController::class, ['names' => 'subservices']);
 
 
 
@@ -38,10 +40,10 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin']], function(){
 
     ///////////////////////////////////////////////////////////////////////////////
 
-    Route::get('orders', [Admin\AdminHomeController::class, 'orders'])->name('orders');
+    // Route::get('orders', [Admin\AdminHomeController::class, 'orders'])->name('orders');
     Route::resource('seo', Admin\SeoController::class, ['names' => 'seo']);
-    Route::resource('testimonial', Admin\TestimonialController::class, ['names' => 'testimonial']);
-    Route::resource('slider', Admin\SliderController::class, ['names' => 'slider']);
+    // Route::resource('testimonial', Admin\TestimonialController::class, ['names' => 'testimonial']);
+    // Route::resource('slider', Admin\SliderController::class, ['names' => 'slider']);
     Route::resource('logo', Admin\LogoController::class, ['names' => 'logo']);
     Route::get('/admin-home', [Admin\AdminHomeController::class, 'home'])->name('home.index');
 

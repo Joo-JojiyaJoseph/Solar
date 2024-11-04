@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Mail\LeadFormSubmission;
 use App\Models\Admin\Admin;
 use App\Models\Admin\Lead;
+use App\Models\Admin\Service;
+use App\Models\Admin\SubService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
@@ -18,8 +20,10 @@ class LeadsController extends Controller
      */
     public function index()
     {
+
         return view('leads.index');
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -28,8 +32,9 @@ class LeadsController extends Controller
      */
     public function create()
     {
+        $services = Service::Orderby('id', 'desc')->get();
         $branchs = Admin::Orderby('id', 'desc')->where('type','branch')->get();
-        return view('admin.leads.create',compact('branchs'));
+        return view('admin.leads.create',compact('branchs','services'));
     }
 
     /**

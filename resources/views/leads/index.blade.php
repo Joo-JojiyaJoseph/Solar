@@ -19,4 +19,5 @@
             @livewire('leads')
         </div>
     </div>
+
 @endsection

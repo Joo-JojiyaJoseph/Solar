@@ -73,7 +73,7 @@
             </div>
 
             <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-12">
-                <a href="">
+                <a href="{{ route('services.index') }}">
                     <div class="info-stats2">
                         <div class="info-icon danger"><i class="icon-layers2"></i></div>
                         <div class="sale-num"><h3 class="text-xl">Services</h3><p>services</p></div>
@@ -83,7 +83,7 @@
 
 
             <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-12">
-                <a href="">
+                <a href="{{ route('subservices.index') }}">
                     <div class="info-stats2">
                         <div class="info-icon danger"><i class="icon-layers2"></i></div>
                         <div class="sale-num"><h3 class="text-xl">Sub Services</h3><p>Sub Services</p></div>
