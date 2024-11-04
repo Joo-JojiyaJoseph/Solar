@@ -20,7 +20,8 @@
                         <tr>
                             <th scope="row">{{ $loop->iteration }}</th>
                             <td>{{ $lead->branch }}</td>
-                            <td>{{ $lead->customer_name }}<br>{{ $lead->customer_address }}<br>{{ $lead->landmark }}</td>
+                            <td>{{ $lead->customer_name }}<br>{{ $lead->customer_address }}<br>{{ $lead->landmark }}
+                            </td>
                             <td>{{ $lead->contact_number }}<br>{{ $lead->alternate_number }}</td>
                             <td>{{ $lead->email }}</td>
                             <td>{{ $lead->service }}<br>{{ $lead->sub_service }}</td>
@@ -28,62 +29,79 @@
                             <td>{{ $lead->status }}</td>
                             <td>
                                 @if ($user->type != 'technician' && $lead->status == 'new')
-                                    <button type="button" class="btn btn-primary btn-block mb-2" data-toggle="modal" data-target="#assign{{ $lead->id }}" aria-label="Assign lead {{ $lead->customer_name }}">
+                                    <button type="button" class="btn btn-primary btn-block mb-2" data-toggle="modal"
+                                        data-target="#assign{{ $lead->id }}"
+                                        aria-label="Assign lead {{ $lead->customer_name }}">
                                         Assign
                                     </button>
                                 @elseif ($user->type != 'technician' && $lead->status != 'new')
                                     <p>Assigned</p>
                                 @elseif ($user->type == 'technician' && $lead->status == 'pending')
-                                    <button type="button" class="btn btn-success btn-block" wire:click="markAsWorking({{ $lead->id }})" aria-label="Mark lead {{ $lead->customer_name }} as working">Working</button>
+                                    <button type="button" class="btn btn-success btn-block"
+                                        wire:click="markAsWorking({{ $lead->id }})"
+                                        aria-label="Mark lead {{ $lead->customer_name }} as working">Working</button>
                                 @elseif ($user->type == 'technician' && $lead->status == 'working')
-                                    <button type="button" class="btn btn-danger btn-block" wire:click="markAsPending({{ $lead->id }})" aria-label="Mark lead {{ $lead->customer_name }} as pending">Pending</button>
-                                    <button type="button" class="btn btn-success btn-block" wire:click="markAsCompleted({{ $lead->id }})" aria-label="Mark lead {{ $lead->customer_name }} as completed">Completed</button>
+                                    <button type="button" class="btn btn-danger btn-block"
+                                        wire:click="markAsPending({{ $lead->id }})"
+                                        aria-label="Mark lead {{ $lead->customer_name }} as pending">Pending</button>
+                                    <button type="button" class="btn btn-success btn-block"
+                                        wire:click="markAsCompleted({{ $lead->id }})"
+                                        aria-label="Mark lead {{ $lead->customer_name }} as completed">Completed</button>
                                 @elseif ($user->type == 'technician' && $lead->status == 'completed')
                                     <p>Completed</p>
                                 @endif
                             </td>
                         </tr>
                         <!-- Modal for Assigning Technician -->
-<div class="modal fade" id="assign{{ $lead->id }}" tabindex="-1" role="dialog" aria-labelledby="assignLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="assignLabel">Assign Lead</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <form wire:submit.prevent="assignTechnician">
-                <div class="modal-body">
-                    <div class="form-group row">
-                        <div class="col-md-6 mb-3">
-                            <input type="text" wire:model.defer="selectedLeadId" value="4">
-                            <label for="technician">Technician {{ $lead->id }}</label>
-                            <select id="technician" wire:model.defer="technician_id"  class="form-control required">
-                                <option value="">Select technician*</option>
-                                @foreach ($technicians as $technician)
-                                    <option value="{{ $technician->id }}">{{ $technician->name }}</option>
-                                @endforeach
-                            </select>
-                            @error('technician_id')
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
+                        <div class="modal fade" id="assign{{ $lead->id }}" tabindex="-1" role="dialog"
+                            aria-labelledby="assignLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="assignLabel">Assign Lead</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <form wire:submit.prevent="assignTechnician({{ $lead->id }})">
+                                        <div class="modal-body">
+                                            <div class="form-group row">
+                                                <div class="col-md-6 mb-3">
+                                                    {{-- <input type="text" wire:model.defer="selectedLeadId" value="4"> --}}
+                                                    <label for="technician">Technician</label>
+                                                    <select id="technician" wire:model.defer="technician_id"
+                                                        class="form-control required">
+                                                        <option value="">Select technician*</option>
+                                                        @foreach ($technicians as $technician)
+                                                            <option value="{{ $technician->id }}">
+                                                                {{ $technician->name }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                    @error('technician_id')
+                                                        <span class="text-danger">{{ $message }}</span>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn btn-primary">Assign</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Assign</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
                     @endforeach
                 </tbody>
             </table>
         </div>
     </div>
-
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            window.addEventListener('refresh-page', event => {
+                location.reload(); // Reloads the current page
+            });
+        });
+    </script>
 </div>

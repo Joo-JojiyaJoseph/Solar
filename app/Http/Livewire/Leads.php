@@ -26,8 +26,9 @@ class Leads extends Component
         $this->leads = Lead::orderBy('id', 'desc')->get();
         $this->technicians = Admin::orderBy('id', 'desc')->where('type','technician')->get();
      }
-     public function assignTechnician()
+     public function assignTechnician($leadId)
      {
+        $this->selectedLeadId=$leadId;
          if ($this->selectedLeadId && $this->technician_id) {
              $lead = Lead::find($this->selectedLeadId);
              if ($lead) {
@@ -38,9 +39,7 @@ class Leads extends Component
                  $this->loadleads(); // Refresh leads data
              }
          }
-         else{
-            dd($this->selectedLeadId,$this->technician_id);
-         }
+         $this->dispatchBrowserEvent('refresh-page');
      }
 
      public function markAsWorking($leadId)
