@@ -3,7 +3,7 @@
     <div class="d-flex justify-content-end"> <!-- Use Flexbox to align items to the right -->
         <div class="mb-3 w-25"> <!-- Remove text-write class as it was a typo -->
             <label for="statusFilter">Filter by Status:</label>
-            <select id="statusFilter" wire:model="selectedStatus" class="form-control"> <!-- Set width -->
+            <select wire:model="selectedStatus" class="form-control"> <!-- Set width -->
                 <option value="">All</option>
                 <option value="new">New</option>
                 <option value="pending">Pending</option>
@@ -34,12 +34,12 @@
                     @foreach ($leads as $lead)
                         <tr>
                             <th scope="row">{{ $loop->iteration }}</th>
-                            <td>{{ $lead->branch }}</td>
+                            <td>{{ $lead->branchname }}</td>
                             <td>{{ $lead->customer_name }}<br>{{ $lead->customer_address }}<br>{{ $lead->landmark }}
                             </td>
                             <td>{{ $lead->contact_number }}<br>{{ $lead->alternate_number }}</td>
                             <td>{{ $lead->email }}</td>
-                            <td>{{ $lead->service }}<br>{{ $lead->sub_service }}</td>
+                            <td>{{ $lead->servicename }}<br>{{ $lead->subservicename }}</td>
                             <td>{{ $lead->comments }}</td>
                             <td>{{ $lead->status }}</td>
                             <td>

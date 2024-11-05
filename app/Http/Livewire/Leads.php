@@ -25,27 +25,48 @@ class Leads extends Component
         $id = auth()->guard('admin')->user()->id;
         $this->user = Admin::find($id);
 
-        if ($this->user->type=="branch" ) {
-
-            $this->leads = Lead::where('branch',$this->user->id)->orderBy('id', 'desc')->get();
+        if($this->selectedStatus!=null && $this->user->type=="branch" ) {
+            $this->leads = Lead::join('admins', 'admins.id', '=', 'leads.branch')
+            ->join('services', 'services.id', '=', 'leads.service')
+            ->join('sub_services', 'sub_services.id', '=', 'leads.sub_service')
+             ->select('leads.*', 'admins.name as branchname','services.name as servicename','sub_services.title as subservicename')
+             ->where('leads.status',$this->selectedStatus)->where('leads.branch',$this->user->id)->orderBy('id', 'desc')->get();
+            }
+        elseif($this->user->type=="branch" ) {
+            $this->leads = Lead::join('admins', 'admins.id', '=', 'leads.branch')
+            ->join('services', 'services.id', '=', 'leads.service')
+            ->join('sub_services', 'sub_services.id', '=', 'leads.sub_service')
+             ->select('leads.*', 'admins.name as branchname','services.name as servicename','sub_services.title as subservicename')
+             ->where('leads.branch',$this->user->id)->orderBy('id', 'desc')->get();
         }
-        elseif ($this->selectedStatus && $this->user->type=="branch" ) {
-            $this->leads = Lead::where('status',$this->selectedStatus)->where('branch',$this->user->id)->orderBy('id', 'desc')->get();
+        elseif($this->selectedStatus && $this->user->type=="technician" ) {
+            $this->leads = Lead::join('admins', 'admins.id', '=', 'leads.branch')
+            ->join('services', 'services.id', '=', 'leads.service')
+            ->join('sub_services', 'sub_services.id', '=', 'leads.sub_service')
+             ->select('leads.*', 'admins.name as branchname','services.name as servicename','sub_services.title as subservicename')
+             ->where('leads.status',$this->selectedStatus)->where('leads.technician',$this->user->id)->orderBy('id', 'desc')->get();
         }
-
-        elseif ($this->user->type=="technician" ) {
-            $this->leads = Lead::where('technician',$this->user->id)->orderBy('id', 'desc')->get();
+        elseif($this->user->type=="technician" ) {
+            $this->leads = Lead::join('admins', 'admins.id', '=', 'leads.branch')
+            ->join('services', 'services.id', '=', 'leads.service')
+            ->join('sub_services', 'sub_services.id', '=', 'leads.sub_service')
+             ->select('leads.*', 'admins.name as branchname','services.name as servicename','sub_services.title as subservicename')
+             ->where('technician',$this->user->id)->orderBy('id', 'desc')->get();
         }
-        elseif ($this->selectedStatus && $this->user->type=="technician" ) {
-            $this->leads = Lead::where('status',$this->selectedStatus)->where('technician',$this->user->id)->orderBy('id', 'desc')->get();
-        }
-        elseif ($this->selectedStatus) {
-            $this->leads = Lead::where('status',$this->selectedStatus)->orderBy('id', 'desc')->get();
+        elseif($this->selectedStatus) {
+            $this->leads = Lead::join('admins', 'admins.id', '=', 'leads.branch')
+            ->join('services', 'services.id', '=', 'leads.service')
+            ->join('sub_services', 'sub_services.id', '=', 'leads.sub_service')
+             ->select('leads.*', 'admins.name as branchname','services.name as servicename','sub_services.title as subservicename')
+             ->where('leads.status',$this->selectedStatus)->orderBy('id', 'desc')->get();
         }
         else{
-        $this->leads = Lead::orderBy('id', 'desc')->get();
+        $this->leads = Lead::join('admins', 'admins.id', '=', 'leads.branch')
+        ->join('services', 'services.id', '=', 'leads.service')
+        ->join('sub_services', 'sub_services.id', '=', 'leads.sub_service')
+         ->select('leads.*', 'admins.name as branchname','services.name as servicename','sub_services.title as subservicename')
+         ->orderBy('id', 'desc')->get();
         }
-
         $this->technicians = Admin::orderBy('id', 'desc')->where('type','technician')->get();
      }
 
@@ -96,7 +117,7 @@ public function markAsPending($leadId)
     {
         $this->loadleads();
         return view('livewire.leads', [
-            'leads' => $this->leads,
+            'leads' => $this->leads,'user'=>$this->user,
         ]);
 
     }
