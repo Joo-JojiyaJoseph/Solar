@@ -32,7 +32,7 @@
                 </thead>
                 <tbody>
                     @foreach ($leads as $lead)
-                        <tr>
+                        <tr @if($lead->status == 'pending') class="bg-red-600"@endif>
                             <th scope="row">{{ $loop->iteration }}</th>
                             <td>{{ $lead->branchname }}</td>
                             <td>{{ $lead->customer_name }}<br>{{ $lead->customer_address }}<br>{{ $lead->landmark }}

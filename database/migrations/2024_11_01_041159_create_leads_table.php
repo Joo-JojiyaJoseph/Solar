@@ -25,6 +25,7 @@ class CreateLeadsTable extends Migration
             $table->string('service');
             $table->string('sub_service')->nullable();
             $table->text('comments')->nullable();
+            $table->text('tech_comments')->nullable();
             $table->text('status')->default("new");
             $table->text('technician')->nullable();
             $table->timestamps();

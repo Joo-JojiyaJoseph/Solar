@@ -65,25 +65,40 @@
                                 <span class="menu-text">Dashboards</span>
                             </a>
                         </li>
+                        @if($user->type=="admin")
                         <li>
-                            <a href="{{ route('seo.index') }}">
+                            <a href="{{ route('branch.index') }}">
                                 <i class="icon-home2"></i>
-                                <span class="menu-text">Seo</span>
-                            </a>
-                        </li>
-                        {{-- <li>
-                            <a href="{{ route('news.index') }}">
-                                <i class="icon-home2"></i>
-                                <span class="menu-text">Events</span>
+                                <span class="menu-text">Branch</span>
                             </a>
                         </li>
                         <li>
-                            <a href="{{ route('users.list') }}">
+                            <a href="{{ route('technician.index') }}">
                                 <i class="icon-home2"></i>
-                                <span class="menu-text">Users</span>
+                                <span class="menu-text">Technician</span>
                             </a>
-                        </li> --}}
-
+                        </li>
+                        <li>
+                            <a href="{{ route('services.index') }}">
+                                <i class="icon-home2"></i>
+                                <span class="menu-text">Service</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('subservices.index') }}">
+                                <i class="icon-home2"></i>
+                                <span class="menu-text">Sub Service</span>
+                            </a>
+                        </li>
+                        @endif
+                        @if($user->type=="admin")
+                        <li>
+                            <a href="{{ route('technician.index') }}">
+                                <i class="icon-home2"></i>
+                                <span class="menu-text">Technician</span>
+                            </a>
+                        </li>
+                        @endif
 
                         {{-- <li class="sidebar-dropdown">
                             <a href="#">
