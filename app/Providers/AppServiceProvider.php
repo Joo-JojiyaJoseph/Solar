@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\Admin\Account;
+use App\Models\Admin\Admin;
 use App\Models\Admin\Category;
 use App\Models\Admin\Color;
 use App\Models\Admin\Food;
@@ -42,8 +43,8 @@ class AppServiceProvider extends ServiceProvider
             ]);
         }
 
-       $testimonials = Testimonial::Orderby('id', 'desc')->get();
+        $testimonials = Testimonial::Orderby('id', 'desc')->get();
           $logo = Logo::first();
-        View::share(compact('logo','testimonials'));
+        View::share(compact('logo'));
     }
 }

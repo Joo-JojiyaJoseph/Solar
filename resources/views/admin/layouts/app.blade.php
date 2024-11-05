@@ -65,7 +65,7 @@
                                 <span class="menu-text">Dashboards</span>
                             </a>
                         </li>
-                        @if($user->type=="admin")
+                        @if(auth()->guard('admin')->user()->type=="admin")
                         <li>
                             <a href="{{ route('branch.index') }}">
                                 <i class="icon-home2"></i>
@@ -91,7 +91,7 @@
                             </a>
                         </li>
                         @endif
-                        @if($user->type=="admin")
+                        @if(auth()->guard('admin')->user()->type=="admin")
                         <li>
                             <a href="{{ route('technician.index') }}">
                                 <i class="icon-home2"></i>
