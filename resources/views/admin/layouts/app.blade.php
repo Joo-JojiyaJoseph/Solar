@@ -79,6 +79,12 @@
                             </a>
                         </li>
                         <li>
+                            <a href="{{ route('marketting.index') }}">
+                                <i class="icon-home2"></i>
+                                <span class="menu-text">markketing</span>
+                            </a>
+                        </li>
+                        <li>
                             <a href="{{ route('services.index') }}">
                                 <i class="icon-home2"></i>
                                 <span class="menu-text">Service</span>
@@ -91,7 +97,7 @@
                             </a>
                         </li>
                         @endif
-                        @if(auth()->guard('admin')->user()->type=="admin")
+                        @if(auth()->guard('admin')->user()->type=="branch")
                         <li>
                             <a href="{{ route('technician.index') }}">
                                 <i class="icon-home2"></i>

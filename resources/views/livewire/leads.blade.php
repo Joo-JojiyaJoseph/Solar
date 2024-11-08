@@ -32,7 +32,7 @@
                 </thead>
                 <tbody>
                     @foreach ($leads as $lead)
-                        <tr @if($lead->status == 'pending') class="bg-red-600"@endif>
+                        <tr @if($lead->status == 'pending') style="background: #9d1a1a;" @endif>
                             <th scope="row">{{ $loop->iteration }}</th>
                             <td>{{ $lead->branchname }}</td>
                             <td>{{ $lead->customer_name }}<br>{{ $lead->customer_address }}<br>{{ $lead->landmark }}
@@ -42,6 +42,7 @@
                             <td>{{ $lead->servicename }}<br>{{ $lead->subservicename }}</td>
                             <td>{{ $lead->comments }}</td>
                             <td>{{ $lead->status }}</td>
+                              @if ($user->type != 'marketting')
                             <td>
                                 @if ($user->type != 'technician' && $lead->status == 'new')
                                     <button type="button" class="btn btn-primary btn-block mb-2" data-toggle="modal"
@@ -66,6 +67,7 @@
                                     <p>Completed</p>
                                 @endif
                             </td>
+                            @endif
                         </tr>
                         <!-- Modal for Assigning Technician -->
                         <div class="modal fade" id="assign{{ $lead->id }}" tabindex="-1" role="dialog"
