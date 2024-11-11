@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Livewire;
 
 use App\Models\Admin\Admin;
 use App\Models\Admin\Lead;
@@ -28,43 +28,37 @@ class Leads extends Component
         if($this->selectedStatus!=null && $this->user->type=="branch" ) {
             $this->leads = Lead::join('admins', 'admins.id', '=', 'leads.branch')
             ->join('services', 'services.id', '=', 'leads.service')
-            ->join('sub_services', 'sub_services.id', '=', 'leads.sub_service')
-             ->select('leads.*', 'admins.name as branchname','services.name as servicename','sub_services.title as subservicename')
+             ->select('leads.*', 'admins.name as branchname','services.name as servicename')
              ->where('leads.status',$this->selectedStatus)->where('leads.branch',$this->user->id)->orderBy('id', 'desc')->get();
             }
         elseif($this->user->type=="branch" ) {
             $this->leads = Lead::join('admins', 'admins.id', '=', 'leads.branch')
             ->join('services', 'services.id', '=', 'leads.service')
-            ->join('sub_services', 'sub_services.id', '=', 'leads.sub_service')
-             ->select('leads.*', 'admins.name as branchname','services.name as servicename','sub_services.title as subservicename')
+             ->select('leads.*', 'admins.name as branchname','services.name as servicename')
              ->where('leads.branch',$this->user->id)->orderBy('id', 'desc')->get();
         }
         elseif($this->selectedStatus && $this->user->type=="technician" ) {
             $this->leads = Lead::join('admins', 'admins.id', '=', 'leads.branch')
             ->join('services', 'services.id', '=', 'leads.service')
-            ->join('sub_services', 'sub_services.id', '=', 'leads.sub_service')
-             ->select('leads.*', 'admins.name as branchname','services.name as servicename','sub_services.title as subservicename')
+             ->select('leads.*', 'admins.name as branchname','services.name as servicename')
              ->where('leads.status',$this->selectedStatus)->where('leads.technician',$this->user->id)->orderBy('id', 'desc')->get();
         }
         elseif($this->user->type=="technician" ) {
             $this->leads = Lead::join('admins', 'admins.id', '=', 'leads.branch')
             ->join('services', 'services.id', '=', 'leads.service')
-            ->join('sub_services', 'sub_services.id', '=', 'leads.sub_service')
-             ->select('leads.*', 'admins.name as branchname','services.name as servicename','sub_services.title as subservicename')
+             ->select('leads.*', 'admins.name as branchname','services.name as servicename')
              ->where('technician',$this->user->id)->orderBy('id', 'desc')->get();
         }
         elseif($this->selectedStatus) {
             $this->leads = Lead::join('admins', 'admins.id', '=', 'leads.branch')
             ->join('services', 'services.id', '=', 'leads.service')
-            ->join('sub_services', 'sub_services.id', '=', 'leads.sub_service')
-             ->select('leads.*', 'admins.name as branchname','services.name as servicename','sub_services.title as subservicename')
+             ->select('leads.*', 'admins.name as branchname','services.name as servicename')
              ->where('leads.status',$this->selectedStatus)->orderBy('id', 'desc')->get();
         }
         else{
         $this->leads = Lead::join('admins', 'admins.id', '=', 'leads.branch')
         ->join('services', 'services.id', '=', 'leads.service')
-        ->join('sub_services', 'sub_services.id', '=', 'leads.sub_service')
-         ->select('leads.*', 'admins.name as branchname','services.name as servicename','sub_services.title as subservicename')
+         ->select('leads.*', 'admins.name as branchname','services.name as servicename')
          ->orderBy('id', 'desc')->get();
         }
         $this->technicians = Admin::orderBy('id', 'desc')->where('type','technician')->get();
@@ -78,12 +72,12 @@ class Leads extends Component
              if ($lead) {
                  $lead->update(['technician' => $this->technician_id, 'status' => 'pending']);
                  session()->flash('message', 'Technician assigned successfully.');
-                 $this->emit('technicianAssigned');
+                 $this->dispatch('technicianAssigned');
                  $this->reset(['technician_id', 'selectedLeadId']); // Reset values
                  $this->loadleads(); // Refresh leads data
              }
          }
-         $this->dispatchBrowserEvent('refresh-page');
+         $this->dispatch('refresh-page');
      }
 
      public function markAsWorking($leadId)

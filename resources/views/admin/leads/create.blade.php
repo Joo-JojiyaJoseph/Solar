@@ -35,6 +35,11 @@
                     class="text-center text-lg font-bold text-gray-800" readonly>
             </div>
             <div>
+                <label class="block text-gray-700 font-semibold">Lead Date</label>
+                <input type="date" value="{{ now()->format('d-m-Y') }}"
+                    class="text-center text-lg font-bold text-gray-800" name="lead_date">
+            </div>
+            <div>
                 <label class="block text-gray-700 font-semibold">Branch</label>
                 <select name="branch"
                     class="w-full px-3 py-2 mt-1 border rounded-lg focus:ring-2 focus:ring-blue-400 transition duration-300 required">
@@ -69,8 +74,14 @@
             </div>
 
             <div>
-                <label class="block text-gray-700 font-semibold">Alternate Number</label>
+                <label class="block text-gray-700 font-semibold">Alternate Number1</label>
                 <input type="tel" name="alternate_number"
+                    class="w-full px-3 py-2 mt-1 border rounded-lg focus:ring-2 focus:ring-blue-400 transition duration-300">
+            </div>
+
+            <div>
+                <label class="block text-gray-700 font-semibold">Alternate Number2</label>
+                <input type="tel" name="alternate_number1"
                     class="w-full px-3 py-2 mt-1 border rounded-lg focus:ring-2 focus:ring-blue-400 transition duration-300">
             </div>
 
@@ -91,13 +102,14 @@
                 </select>
             </div>
 
+{{--
             <div>
                 <label class="block text-gray-700 font-semibold">Sub Service</label>
                 <select name="sub_service" id="sub_service"
                     class="w-full px-3 py-2 mt-1 border rounded-lg focus:ring-2 focus:ring-blue-400 transition duration-300">
                     <option value="">Select Sub Service</option>
                 </select>
-            </div>
+            </div> --}}
 
             <script>
                document.addEventListener('DOMContentLoaded', function () {
@@ -148,6 +160,11 @@
                     class="w-full px-3 py-2 mt-1 border rounded-lg focus:ring-2 focus:ring-blue-400 transition duration-300"></textarea>
             </div>
 
+            <div>
+                <label class="block text-gray-700 font-semibold">referance</label>
+                <input type="text" name="referance"
+                    class="w-full px-3 py-2 mt-1 border rounded-lg focus:ring-2 focus:ring-blue-400 transition duration-300">
+            </div>
             <div class="text-center">
                 <button type="submit"
                     class="px-6 py-2 bg-green-500 text-white rounded-lg font-semibold transition duration-300 transform hover:scale-105">

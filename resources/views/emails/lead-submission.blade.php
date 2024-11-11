@@ -16,7 +16,6 @@
     <p><strong>Alternate Number:</strong> {{ $leadData['alternate_number'] }}</p>
     <p><strong>Email:</strong> {{ $leadData['email'] }}</p>
     <p><strong>Service:</strong> {{ $leadData['service'] }}</p>
-    <p><strong>Sub Service:</strong> {{ $leadData['sub_service'] }}</p>
     <p><strong>Comments:</strong> {{ $leadData['comments'] }}</p>
     <p><em>Submitted on {{ now()->format('Y-m-d H:i:s') }}</em></p>
 </body>

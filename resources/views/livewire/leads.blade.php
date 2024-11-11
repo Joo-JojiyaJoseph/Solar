@@ -3,7 +3,7 @@
     <div class="d-flex justify-content-end"> <!-- Use Flexbox to align items to the right -->
         <div class="mb-3 w-25"> <!-- Remove text-write class as it was a typo -->
             <label for="statusFilter">Filter by Status:</label>
-            <select wire:model="selectedStatus" class="form-control"> <!-- Set width -->
+            <select wire:model.live="selectedStatus" class="form-control"> <!-- Set width -->
                 <option value="">All</option>
                 <option value="new">New</option>
                 <option value="pending">Pending</option>
@@ -20,12 +20,14 @@
                 <thead>
                     <tr>
                         <th scope="col">#</th>
+                        <th scope="col">Lead Date</th>
                         <th scope="col">Branch</th>
                         <th scope="col">Customer</th>
                         <th scope="col">Phone</th>
                         <th scope="col">Email</th>
                         <th scope="col">Service</th>
                         <th scope="col">Comments</th>
+                        <th scope="col">Referance</th>
                         <th scope="col">Status</th>
                         <th scope="col">Action</th>
                     </tr>
@@ -34,13 +36,15 @@
                     @foreach ($leads as $lead)
                         <tr @if($lead->status == 'pending') style="background: #9d1a1a;" @endif>
                             <th scope="row">{{ $loop->iteration }}</th>
+                            <td>{{ $lead->lead_date }}</td>
                             <td>{{ $lead->branchname }}</td>
                             <td>{{ $lead->customer_name }}<br>{{ $lead->customer_address }}<br>{{ $lead->landmark }}
                             </td>
-                            <td>{{ $lead->contact_number }}<br>{{ $lead->alternate_number }}</td>
+                            <td>{{ $lead->contact_number }}<br>{{ $lead->alternate_number }}</br>{{ $lead->alternate_number1 }}</td>
                             <td>{{ $lead->email }}</td>
                             <td>{{ $lead->servicename }}<br>{{ $lead->subservicename }}</td>
                             <td>{{ $lead->comments }}</td>
+                            <td>{{ $lead->referance }}</td>
                             <td>{{ $lead->status }}</td>
                               @if ($user->type != 'marketting')
                             <td>
@@ -80,13 +84,13 @@
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
-                                    <form wire:submit.prevent="assignTechnician({{ $lead->id }})">
+                                    <form wire:submit="assignTechnician({{ $lead->id }})">
                                         <div class="modal-body">
                                             <div class="form-group row">
                                                 <div class="col-md-6 mb-3">
-                                                    {{-- <input type="text" wire:model.defer="selectedLeadId" value="4"> --}}
+                                                    {{-- <input type="text" wire:model="selectedLeadId" value="4"> --}}
                                                     <label for="technician">Technician</label>
-                                                    <select id="technician" wire:model.defer="technician_id"
+                                                    <select id="technician" wire:model="technician_id"
                                                         class="form-control required">
                                                         <option value="">Select technician*</option>
                                                         @foreach ($technicians as $technician)

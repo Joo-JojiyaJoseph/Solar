@@ -14,12 +14,12 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form wire:submit.prevent="assignTechnician">
+                <form wire:submit="assignTechnician">
                     <div class="modal-body">
                         <div class="form-group row">
                             <div class="col-md-6 mb-3">
                                 <label>Technician</label>
-                                <select wire:model="technician_id" class="form-control required">
+                                <select wire:model.live="technician_id" class="form-control required">
                                     <option value="">Select technician*</option>
                                     @foreach ($technicians as $technician)
                                         <option value="{{ $technician->id }}">{{ $technician->name }}</option>
