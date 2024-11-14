@@ -20,7 +20,7 @@ class CreateLeadsTable extends Migration
             $table->string('customer_name');
             $table->string('customer_address');
             $table->string('landmark')->nullable();
-            $table->string('contact_number');
+            $table->string('contact_number')->unique();;
             $table->string('alternate_number')->nullable();
             $table->string('alternate_number1')->nullable();
             $table->string('email')->nullable();

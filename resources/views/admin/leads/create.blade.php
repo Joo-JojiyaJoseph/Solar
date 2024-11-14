@@ -37,7 +37,7 @@
             <div>
                 <label class="block text-gray-700 font-semibold">Lead Date</label>
                 <input type="date" value="{{ now()->format('d-m-Y') }}"
-                    class="text-center text-lg font-bold text-gray-800" name="lead_date">
+                    class="w-full px-3 py-2 mt-1 border rounded-lg focus:ring-2 focus:ring-blue-400 transition duration-300" name="lead_date">
             </div>
             <div>
                 <label class="block text-gray-700 font-semibold">Branch</label>
@@ -57,8 +57,10 @@
 
             <div>
                 <label class="block text-gray-700 font-semibold">Customer Address*</label>
-                <input type="text" name="customer_address" required
-                    class="w-full px-3 py-2 mt-1 border rounded-lg focus:ring-2 focus:ring-blue-400 transition duration-300">
+                <textarea name="customer_address" required
+                    class="w-full px-3 py-2 mt-1 border rounded-lg focus:ring-2 focus:ring-blue-400 transition duration-300"></textarea>
+                <!--<input type="text" name="customer_address" required-->
+                <!--    class="w-full px-3 py-2 mt-1 border rounded-lg focus:ring-2 focus:ring-blue-400 transition duration-300">-->
             </div>
 
             <div>
@@ -161,7 +163,7 @@
             </div>
 
             <div>
-                <label class="block text-gray-700 font-semibold">referance</label>
+                <label class="block text-gray-700 font-semibold">Referance</label>
                 <input type="text" name="referance"
                     class="w-full px-3 py-2 mt-1 border rounded-lg focus:ring-2 focus:ring-blue-400 transition duration-300">
             </div>

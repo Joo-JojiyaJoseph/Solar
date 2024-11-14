@@ -50,7 +50,7 @@ class LeadsController extends Controller
             'lead_date' => 'required',
             'branch' => 'required',
             'customer_address' => 'required|string|max:255',
-            'contact_number' => 'required|string|max:15',
+            'contact_number' => 'required|string|max:10|min:10|unique:leads,contact_number',
             'service' => 'required|string',
             'referance' => 'required|string',
         ]);
@@ -71,7 +71,7 @@ class LeadsController extends Controller
         'comments' => $request->comments,
         'referance'=>$request->referance
            ];
-        Mail::to('admin@example.com')->send(new LeadFormSubmission($lead));
+        // Mail::to('admin@example.com')->send(new LeadFormSubmission($lead));
 
         return redirect()->back()->with('success', 'Lead submitted successfully.');
     }
@@ -107,7 +107,33 @@ class LeadsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $leads = Lead::find($id);
+
+        $request->validate([
+            'customer_name' => 'required|string|max:255',
+            'lead_date' => 'required',
+            'branch' => 'required',
+            'customer_address' => 'required|string|max:255',
+            'contact_number' => 'required|string|max:10|min:10|unique:leads,contact_number',
+            'service' => 'required|string',
+            'referance' => 'required|string',
+        ]);
+        $leads->update([
+            'lead_date'=>$request->lead_date,
+        'branch' => $request->branch,
+        'customer_name' => $request->customer_name,
+        'customer_address' => $request->customer_address,
+        'contact_number' => $request->contact_number,
+        'alternate_number' => $request->alternate_number,
+        'alternate_number1' => $request->alternate_number1,
+        'email' => $request->email,
+        'service' => $request->service,
+        'landmark' => $request->landmark,
+        'comments' => $request->comments,
+        'referance'=>$request->referance
+        ]);
+
+        return redirect(route('leads.index'))->with('success', 'Updated Successfully');
     }
 
     /**
@@ -116,8 +142,12 @@ class LeadsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+      public function destroy($id)
     {
-        //
+
+        $lead = Lead::find($id);
+        lead::destroy($lead->id);
+
+        return redirect(route('lead.index'))->with('success', 'Deleted Successfully');
     }
 }
