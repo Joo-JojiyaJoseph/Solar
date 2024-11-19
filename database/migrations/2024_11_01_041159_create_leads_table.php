@@ -30,6 +30,7 @@ class CreateLeadsTable extends Migration
             $table->text('tech_comments')->nullable();
             $table->text('status')->default("new");
             $table->text('technician')->nullable();
+            $table->text('enterd_by')->nullable();
             $table->timestamps();
         });
     }

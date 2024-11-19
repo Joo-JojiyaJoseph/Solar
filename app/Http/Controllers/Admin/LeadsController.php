@@ -55,7 +55,7 @@ class LeadsController extends Controller
             'referance' => 'required|string',
         ]);
 
-        Lead::create($validated + $request->only(['landmark', 'alternate_number', 'email', 'sub_service', 'comments']));
+        Lead::create($validated + $request->only(['landmark', 'alternate_number', 'email', 'sub_service', 'comments','enterd_by']));
         $lead=
         [
         'lead_date'=>$request->lead_date,
@@ -65,6 +65,7 @@ class LeadsController extends Controller
         'contact_number' => $request->contact_number,
         'alternate_number' => $request->alternate_number,
         'alternate_number1' => $request->alternate_number1,
+        'enterd_by' => $request->enterd_by,
         'email' => $request->email,
         'service' => $request->service,
         'landmark' => $request->landmark,
@@ -107,17 +108,18 @@ class LeadsController extends Controller
      */
     public function update(Request $request, $id)
     {
+      
         $leads = Lead::find($id);
 
-        $request->validate([
-            'customer_name' => 'required|string|max:255',
-            'lead_date' => 'required',
-            'branch' => 'required',
-            'customer_address' => 'required|string|max:255',
-            'contact_number' => 'required|string|max:10|min:10|unique:leads,contact_number',
-            'service' => 'required|string',
-            'referance' => 'required|string',
-        ]);
+        // $request->validate([
+        //     'customer_name' => 'required|string|max:255',
+        //     'lead_date' => 'required',
+        //     'branch' => 'required',
+        //     'customer_address' => 'required|string|max:255',
+        //     'contact_number' => 'required|string|max:10|min:10|unique:leads,contact_number',
+        //     'service' => 'required|string',
+        //     'referance' => 'required|string',
+        // ]);
         $leads->update([
             'lead_date'=>$request->lead_date,
         'branch' => $request->branch,
@@ -127,13 +129,14 @@ class LeadsController extends Controller
         'alternate_number' => $request->alternate_number,
         'alternate_number1' => $request->alternate_number1,
         'email' => $request->email,
+        'enterd_by' => $request->enterd_by,
         'service' => $request->service,
         'landmark' => $request->landmark,
         'comments' => $request->comments,
         'referance'=>$request->referance
         ]);
 
-        return redirect(route('leads.index'))->with('success', 'Updated Successfully');
+        return redirect(route('lead.index'))->with('success', 'Updated Successfully');
     }
 
     /**

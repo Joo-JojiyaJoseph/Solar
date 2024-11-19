@@ -167,6 +167,11 @@
                 <input type="text" name="referance"
                     class="w-full px-3 py-2 mt-1 border rounded-lg focus:ring-2 focus:ring-blue-400 transition duration-300">
             </div>
+            <div>
+                <label class="block text-gray-700 font-semibold">Entered By</label>
+                 <input type="text" name="enterd_by" class="w-full px-3 text-black py-2 mt-1 border rounded-lg focus:ring-2 focus:ring-blue-400 transition duration-300">
+             </div>
+
             <div class="text-center">
                 <button type="submit"
                     class="px-6 py-2 bg-green-500 text-white rounded-lg font-semibold transition duration-300 transform hover:scale-105">

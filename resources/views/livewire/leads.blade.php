@@ -47,7 +47,8 @@
                             <td>{{ $lead->email }}</td>
                             <td>{{ $lead->servicename }}<br>{{ $lead->subservicename }}</td>
                             <td>{{ $lead->comments }}</td>
-                            <td>{{ $lead->referance }}</td>
+                            <td>Referance : {{ $lead->referance }}</br>
+                              Entered By : {{ $lead->enterd_by }} </td>
                             <td>{{ $lead->status }}</td>
                               @if ($user->type != 'marketting')
                             <td>
@@ -146,7 +147,7 @@
                             </button>
                         </div>
 
-                        {{-- <form action="{{ route('lead.update', $lead_edit) }}" method="post"
+                        <!-- {{-- <form action="{{ route('lead.update', $lead_edit) }}" method="post"
                             enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
@@ -174,15 +175,12 @@
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                 <button type="submit" class="btn btn-primary" name="case" value="insert">Update</button>
                             </div>
-                        </form> --}}
+                        </form> --}} -->
 
-                        <form action="{{ route('lead.update', $lead_edit) }}" method="POST" class="space-y-4 p-10">
-                            @csrf
-                            {{-- <div class="text-center mb-6">
-                                <label class="block text-gray-600 font-semibold text-sm">Entry Date:</label>
-                                <input type="text" value={{$lead_edit->lead_date}}
-                                    class="text-center text-lg font-bold text-gray-800" readonly>
-                            </div> --}}
+                        <form action="{{ route('lead.update', $lead_edit) }}" method="post" class="space-y-4 p-10">
+                        @csrf
+                        @method('PUT')
+                           
                             <div>
                                 <label class="block text-white font-semibold">Lead Date</label>
                                 <input type="date" value={{$lead_edit->lead_date}}
@@ -207,36 +205,33 @@
                             <div>
                                 <label class="block text-gray-700 font-semibold">Customer Address*</label>
                                 <textarea name="customer_address" required
-                                    class="w-full px-3 text-black py-2 mt-1 border rounded-lg focus:ring-2 focus:ring-blue-400 transition duration-300">{{$lead_edit->customer_address}}</textarea>
-                                <!--<input type="text" name="customer_address" required-->
-                                <!--    class="w-full px-3 text-black py-2 mt-1 border rounded-lg focus:ring-2 focus:ring-blue-400 transition duration-300">-->
-                            </div>
-
+                                    class="w-full px-3 text-black py-2 mt-1 border rounded-lg focus:ring-2 focus:ring-blue-400 transition duration-300">
+                                    {{$lead_edit->customer_address}}</textarea>
+                                 </div>
                             <div>
                                 <label class="block text-gray-700 font-semibold">Landmark</label>
-                                <input type="text" name="landmark" value={{ $lead->landmark }}
-                                    class="w-full px-3 text-black py-2 mt-1 border rounded-lg focus:ring-2 focus:ring-blue-400 transition duration-300">
+                                <input type="text" name="landmark"  class="w-full px-3 text-black py-2 mt-1 border rounded-lg focus:ring-2 focus:ring-blue-400 transition duration-300" value={{ $lead_edit->landmark }}>
                             </div>
 
                             <div>
                                 <label class="block text-gray-700 font-semibold">Contact Number*</label>
-                                <input type="tel" name="contact_number" value={{ $lead->contact_number }} required
+                                <input type="tel" name="contact_number" value={{ $lead_edit->contact_number }} required
                                     class="w-full px-3 text-black py-2 mt-1 border rounded-lg focus:ring-2 focus:ring-blue-400 transition duration-300">
                             </div>
 
                             <div>
                                 <label class="block text-gray-700 font-semibold">Alternate Number1</label>
-                                <input type="tel" name="alternate_number" class="w-full px-3 text-black py-2 mt-1 border rounded-lg focus:ring-2 focus:ring-blue-400 transition duration-300" value={{ $lead->alternate_number }}>
+                                <input type="tel" name="alternate_number" class="w-full px-3 text-black py-2 mt-1 border rounded-lg focus:ring-2 focus:ring-blue-400 transition duration-300" value={{ $lead_edit->alternate_number }}>
                             </div>
 
                             <div>
                                 <label class="block text-gray-700 font-semibold">Alternate Number2</label>
-                                <input type="tel" name="alternate_number1"  class="w-full px-3 text-black py-2 mt-1 border rounded-lg focus:ring-2 focus:ring-blue-400 transition duration-300" value={{ $lead->alternate_number1 }} >
+                                <input type="tel" name="alternate_number1"  class="w-full px-3 text-black py-2 mt-1 border rounded-lg focus:ring-2 focus:ring-blue-400 transition duration-300" value={{ $lead_edit->alternate_number1 }} >
                             </div>
 
                             <div>
                                 <label class="block text-gray-700 font-semibold">Email ID</label>
-                                <input type="email" name="email" class="w-full px-3 text-black py-2 mt-1 border rounded-lg focus:ring-2 focus:ring-blue-400 transition duration-300" value={{ $lead->email }}>
+                                <input type="email" name="email" class="w-full px-3 text-black py-2 mt-1 border rounded-lg focus:ring-2 focus:ring-blue-400 transition duration-300" value={{ $lead_edit->email }}>
                             </div>
 
                             <div>
@@ -296,13 +291,18 @@
                             <div>
                                 <label class="block text-gray-700 font-semibold">Comments</label>
                                 <textarea name="comments"
-                                    class="w-full px-3 text-black py-2 mt-1 border rounded-lg focus:ring-2 focus:ring-blue-400 transition duration-300">{{ $lead->comments }}</textarea>
+                                    class="w-full px-3 text-black py-2 mt-1 border rounded-lg focus:ring-2 focus:ring-blue-400 transition duration-300">{{ $lead_edit->comments }}</textarea>
                             </div>
 
                             <div>
                                 <label class="block text-gray-700 font-semibold">Referance</label>
-                                <input type="text" name="referance" value={{ $lead->referance }}
+                                <input type="text" name="referance" value={{ $lead_edit->referance }}
                                     class="w-full px-3 text-black py-2 mt-1 border rounded-lg focus:ring-2 focus:ring-blue-400 transition duration-300">
+                            </div>
+                            <div>
+                                <label class="block text-gray-700 font-semibold">Entered By</label>
+                                <input type="text" name="enterd_by" 
+                                    class="w-full px-3 text-black py-2 mt-1 border rounded-lg focus:ring-2 focus:ring-blue-400 transition duration-300" value={{ $lead_edit->enterd_by }}>
                             </div>
                             <div class="text-center">
                                 <button type="submit"
