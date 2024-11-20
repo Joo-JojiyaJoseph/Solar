@@ -53,6 +53,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin']], function(){
     Route::resource('technician', Admin\TechnicianController::class, ['names' => 'technician']);
     Route::resource('marketting', Admin\MarkettingController::class, ['names' => 'marketting']);
     Route::resource('leads', Admin\LeadsController::class, ['names' => 'lead']);
+    Route::resource('callleads', Admin\CallLeadsController::class, ['names' => 'calllead']);
     Route::resource('services', Admin\ServiceController::class, ['names' => 'services']);
     Route::resource('subservices', Admin\SubServiceController::class, ['names' => 'subservices']);
 

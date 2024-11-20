@@ -31,6 +31,7 @@ class CreateLeadsTable extends Migration
             $table->text('status')->default("new");
             $table->text('technician')->nullable();
             $table->text('enterd_by')->nullable();
+            $table->text('shedule_date')->nullable();
             $table->timestamps();
         });
     }

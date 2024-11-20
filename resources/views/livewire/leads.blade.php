@@ -66,6 +66,14 @@
                                 @csrf @method('delete')
                             </form>
                             @endif
+
+                             @if ($user->type == 'admin' && $lead->shedule == '')
+                                     <button type="button" class="btn btn-primary btn-block mb-2" data-toggle="modal"
+                                        data-target="#call{{ $lead->id }}"
+                                        aria-label="Assign lead {{ $lead->customer_name }}">
+                                        Call Shedule
+                                     </button>
+                             @endif
                                 {{-- @if ($user->type != 'technician' && $lead->status == 'new')
                                     <button type="button" class="btn btn-primary btn-block mb-2" data-toggle="modal"
                                         data-target="#assign{{ $lead->id }}"
@@ -92,7 +100,7 @@
                             @endif
                         </tr>
                         <!-- Modal for Assigning Technician -->
-                        <div class="modal fade" id="assign{{ $lead->id }}" tabindex="-1" role="dialog"
+                        {{-- <div class="modal fade" id="assign{{ $lead->id }}" tabindex="-1" role="dialog"
                             aria-labelledby="assignLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
@@ -106,7 +114,7 @@
                                         <div class="modal-body">
                                             <div class="form-group row">
                                                 <div class="col-md-6 mb-3">
-                                                    {{-- <input type="text" wire:model="selectedLeadId" value="4"> --}}
+
                                                     <label for="technician">Technician</label>
                                                     <select id="technician" wire:model="technician_id"
                                                         class="form-control required">
@@ -130,6 +138,40 @@
                                     </form>
                                 </div>
                             </div>
+                        </div> --}}
+
+                           <!-- Modal for Assigning Technician -->
+                           <div class="modal fade" id="call{{ $lead->id }}" tabindex="-1" role="dialog"
+                            aria-labelledby="assignLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="assignLabel">Assign Call</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <form wire:submit="shedule({{ $lead->id }})">
+                                        <div class="modal-body">
+                                            <div class="form-group row">
+                                                <div class="col-md-6 mb-3">
+                                                    <label for="shedule_date">date</label>
+                                                        <input type="date" wire:model="shedule_date" class="w-full px-3 text-black py-2 mt-1 border rounded-lg focus:ring-2 focus:ring-blue-400 transition duration-300" name="lead_date">
+                                                    </select>
+                                                    @error('shedule_date')
+                                                        <span class="text-danger">{{ $message }}</span>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn btn-primary">Shedule</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
                         </div>
 
                     @endforeach
@@ -147,40 +189,11 @@
                             </button>
                         </div>
 
-                        <!-- {{-- <form action="{{ route('lead.update', $lead_edit) }}" method="post"
-                            enctype="multipart/form-data">
-                            @csrf
-                            @method('PUT')
-                            <div class="modal-body">
-                                <div class="form-group row">
-                                    <div class="col-md-6 mb-3">
-                                        <select  class="form-control required" name="service_id">
-                                            <option value="">Select Service*</option>
-                                            @foreach ($services as $service)
-                                                <option value="{{ $service->id }}"  {{ $service->id == $lead_edit->services_ids ? 'selected' : '' }}>
-                                                    {{ $service->name }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    <div class="col-md-6 mb-3">
-                                        <label>Sub Service</label>
-                                        <input type="text" class="form-control" name="title"
-                                            value="{{ $lead_edit->title }}">
-                                        @error('title')<span class="text-danger">{{ $message }}</span>@enderror
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary" name="case" value="insert">Update</button>
-                            </div>
-                        </form> --}} -->
 
                         <form action="{{ route('lead.update', $lead_edit) }}" method="post" class="space-y-4 p-10">
                         @csrf
                         @method('PUT')
-                           
+
                             <div>
                                 <label class="block text-white font-semibold">Lead Date</label>
                                 <input type="date" value={{$lead_edit->lead_date}}
@@ -301,7 +314,7 @@
                             </div>
                             <div>
                                 <label class="block text-gray-700 font-semibold">Entered By</label>
-                                <input type="text" name="enterd_by" 
+                                <input type="text" name="enterd_by"
                                     class="w-full px-3 text-black py-2 mt-1 border rounded-lg focus:ring-2 focus:ring-blue-400 transition duration-300" value={{ $lead_edit->enterd_by }}>
                             </div>
                             <div class="text-center">

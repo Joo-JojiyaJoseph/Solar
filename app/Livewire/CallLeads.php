@@ -1,15 +1,16 @@
 <?php
 
 namespace App\Livewire;
-
 use App\Models\Admin\Admin;
 use App\Models\Admin\Lead;
+use Carbon\Carbon;
 use App\Models\Admin\Service;
+
 use Livewire\Component;
 
-class Leads extends Component
-{
 
+class CallLeads extends Component
+{
     public $leads;
     public $type;
     public $status;
@@ -23,8 +24,8 @@ class Leads extends Component
     public $selectedStatus = null;
     public $shedule_date;
 
-
-     public function loadleads(){
+    public function loadleads(){
+        $today = Carbon::today();
         $id = auth()->guard('admin')->user()->id;
         $this->user = Admin::find($id);
 
@@ -35,103 +36,45 @@ class Leads extends Component
             $this->leads = Lead::join('admins', 'admins.id', '=', 'leads.branch')
             ->join('services', 'services.id', '=', 'leads.service')
              ->select('leads.*', 'admins.name as branchname','services.name as servicename')
-             ->where('leads.status',$this->selectedStatus)->where('leads.branch',$this->user->id)->orderBy('id', 'asc')->get();
+             ->where('leads.status',$this->selectedStatus)->where('leads.branch',$this->user->id)
+            ->whereDate('leads.schedule_date', $today)->orderBy('id', 'asc')->get();
             }
         elseif($this->user->type=="branch" ) {
             $this->leads = Lead::join('admins', 'admins.id', '=', 'leads.branch')
             ->join('services', 'services.id', '=', 'leads.service')
              ->select('leads.*', 'admins.name as branchname','services.name as servicename')
-             ->where('leads.branch',$this->user->id)->orderBy('id', 'asc')->get();
+             ->where('leads.branch',$this->user->id)-> whereDate('leads.schedule_date', $today)->orderBy('id', 'asc')->get();
         }
         elseif($this->selectedStatus && $this->user->type=="technician" ) {
             $this->leads = Lead::join('admins', 'admins.id', '=', 'leads.branch')
             ->join('services', 'services.id', '=', 'leads.service')
              ->select('leads.*', 'admins.name as branchname','services.name as servicename')
-             ->where('leads.status',$this->selectedStatus)->where('leads.technician',$this->user->id)->orderBy('id', 'asc')->get();
+             ->where('leads.status',$this->selectedStatus)->where('leads.technician',$this->user->id) ->whereDate('leads.schedule_date', $today)->orderBy('id', 'asc')->get();
         }
         elseif($this->user->type=="technician" ) {
             $this->leads = Lead::join('admins', 'admins.id', '=', 'leads.branch')
             ->join('services', 'services.id', '=', 'leads.service')
              ->select('leads.*', 'admins.name as branchname','services.name as servicename')
-             ->where('technician',$this->user->id)->orderBy('id', 'asc')->get();
+             ->where('technician',$this->user->id) ->whereDate('leads.schedule_date', $today)->orderBy('id', 'asc')->get();
         }
         elseif($this->selectedStatus) {
             $this->leads = Lead::join('admins', 'admins.id', '=', 'leads.branch')
             ->join('services', 'services.id', '=', 'leads.service')
              ->select('leads.*', 'admins.name as branchname','services.name as servicename')
-             ->where('leads.status',$this->selectedStatus)->orderBy('id', 'asc')->get();
+             ->where('leads.status',$this->selectedStatus) ->whereDate('leads.schedule_date', $today)->orderBy('id', 'asc')->get();
         }
         else{
         $this->leads = Lead::join('admins', 'admins.id', '=', 'leads.branch')
         ->join('services', 'services.id', '=', 'leads.service')
          ->select('leads.*', 'admins.name as branchname','services.name as servicename')
-         ->orderBy('id', 'asc')->get();
+         ->whereDate('leads.schedule_date', $today)->orderBy('id', 'asc')->get();
         }
         $this->technicians = Admin::orderBy('id', 'asc')->where('type','technician')->get();
      }
-
-     public function assignTechnician($leadId)
-     {
-        $this->selectedLeadId=$leadId;
-         if ($this->selectedLeadId && $this->technician_id) {
-             $lead = Lead::find($this->selectedLeadId);
-             if ($lead) {
-                 $lead->update(['technician' => $this->technician_id, 'status' => 'pending']);
-                 session()->flash('message', 'Technician assigned successfully.');
-                 $this->dispatch('technicianAssigned');
-                 $this->reset(['technician_id', 'selectedLeadId']); // Reset values
-                 $this->loadleads(); // Refresh leads data
-             }
-         }
-         $this->dispatch('refresh-page');
-     }
-
-     public function shedule($leadId)
-     {
-        $this->selectedLeadId=$leadId;
-             $lead = Lead::find($this->selectedLeadId);
-             if ($lead) {
-                 $lead->update(['shedule_date' => $this->shedule_date, 'status' => 'pending']);
-                 session()->flash('message', 'Call assigned successfully.');
-                 $this->dispatch('call');
-                 $this->reset([ 'shedule_date']); // Reset values
-                 $this->loadleads(); // Refresh leads data
-             }
-         $this->dispatch('refresh-page');
-     }
-
-     
-     public function markAsWorking($leadId)
-{
-    $lead = Lead::find($leadId);
-    if ($lead) {
-        $lead->status = 'working';
-        $lead->save();
-    }
-}
-
-public function markAsCompleted($leadId)
-{
-    $lead = Lead::find($leadId);
-    if ($lead) {
-        $lead->status = 'completed';
-        $lead->save();
-    }
-}
-
-public function markAsPending($leadId)
-{
-    $lead = Lead::find($leadId);
-    if ($lead) {
-        $lead->status = 'pending';
-        $lead->save();
-    }
-}
-
     public function render()
     {
         $this->loadleads();
-        return view('livewire.leads', [
+        return view('livewire.call-leads', [
             'leads' => $this->leads,'user'=>$this->user,
         ]);
 
