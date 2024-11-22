@@ -88,8 +88,10 @@ class Leads extends Component
 
      public function shedule($leadId)
      {
+        
         $this->selectedLeadId=$leadId;
              $lead = Lead::find($this->selectedLeadId);
+             
              if ($lead) {
                  $lead->update(['shedule_date' => $this->shedule_date, 'status' => 'pending']);
                  session()->flash('message', 'Call assigned successfully.');

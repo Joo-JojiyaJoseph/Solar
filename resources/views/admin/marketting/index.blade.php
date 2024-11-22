@@ -48,7 +48,7 @@
                                             <button type="button" class="btn btn-primary btn-block mb-2" data-toggle="modal"
                                                 data-target="#edit{{ $marketting->id }}">Edit</button>
 
-                                                <a href=""><button type="button" class="btn btn-primary btn-block">login</button></a>
+                                                <!-- <a href=""><button type="button" class="btn btn-primary btn-block">login</button></a> -->
 
                                             {{-- <a class="delete_btn btn btn-danger btn-block"
                                                 data-action="{{ $marketting->id }}" message="Delete the marketting">

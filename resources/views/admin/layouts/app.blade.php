@@ -90,12 +90,12 @@
                                 <span class="menu-text">Service</span>
                             </a>
                         </li>
-                        <li>
+                        <!-- <li>
                             <a href="{{ route('subservices.index') }}">
                                 <i class="icon-home2"></i>
                                 <span class="menu-text">Sub Service</span>
                             </a>
-                        </li>
+                        </li> -->
                         @endif
                         @if(auth()->guard('admin')->user()->type=="branch")
                         <li>

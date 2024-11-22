@@ -48,7 +48,7 @@
                                             <button type="button" class="btn btn-primary btn-block mb-2" data-toggle="modal"
                                                 data-target="#edit{{ $branch->id }}">Edit</button>
 
-                                                <a href=""><button type="button" class="btn btn-primary btn-block">login</button></a>
+                                                <!-- <a href=""><button type="button" class="btn btn-primary btn-block">login</button></a> -->
 
                                             {{-- <a class="delete_btn btn btn-danger btn-block"
                                                 data-action="{{ $branch->id }}" message="Delete the branch">
@@ -162,7 +162,7 @@
                                 </div>
 
                                 <div class="col-md-6 mb-3">
-                                    <label>email<Title></Title></label>
+                                    <label>Password<Title></Title></label>
                                     <input type="password" class="form-control" name="password"
                                         value="{{ $branch_edit->password }}">
                                     @error('password')<span class="text-danger">{{ $message }}</span>@enderror

@@ -11,6 +11,7 @@
                 <a href="{{ route('dashboard', '') }}" class="btn btn-primary">Back</a>
             </div>
         </div>
+        <h2>{{$user->type}}</h2>
         <div class="row p-5">
             <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 col-12">
                     <div class="info-stats2">
@@ -110,7 +111,7 @@
                 </a>
             </div>
             @endif --}}
-
+            @if($user->type!="marketting")
             <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-12">
                 <a href="{{route('lead.index')}}">
                     <div class="info-stats2">
@@ -119,7 +120,8 @@
                     </div>
                 </a>
             </div>
-
+            @endif
+            @if($user->type!=="technician")
             <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-12">
                 <a href="{{route('calllead.index')}}">
                     <div class="info-stats2">
@@ -128,6 +130,7 @@
                     </div>
                 </a>
             </div>
+            @endif
 
         </div>
     </div>
