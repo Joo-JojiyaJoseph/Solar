@@ -25,6 +25,8 @@ class CallLeads extends Component
     public $selectedStatus = null;
     public $shedule_date;
     public $callHistorys ;
+    public $comments='' ;
+    public $call_by='' ;
 
     public function loadleads(){
         $today = Carbon::today();
@@ -107,8 +109,8 @@ class CallLeads extends Component
 
              CallHistory::create([
                 'lead_id' => $leadId,
-                'comment' =>$request->comment,
-                'call_by' => $request->call_by,
+                'comment' =>$this->comments,
+                'call_by' =>$this->call_by,
             ]);
 
          $this->dispatch('refresh-page');

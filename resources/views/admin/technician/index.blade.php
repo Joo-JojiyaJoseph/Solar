@@ -162,7 +162,7 @@
                                 </div>
 
                                 <div class="col-md-6 mb-3">
-                                    <label>email<Title></Title></label>
+                                    <label>Password<Title></Title></label>
                                     <input type="password" class="form-control" name="password"
                                         value="{{ $technician_edit->password }}">
                                     @error('password')<span class="text-danger">{{ $message }}</span>@enderror

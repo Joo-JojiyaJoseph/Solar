@@ -147,13 +147,13 @@
                                                 </div>
                                                 <div class="col-md-6 mb-3">
                                                     <label for="comments">comment</label>
-                                                    <textarea name="comments"
+                                                    <textarea wire:model="comments"
                                                         class="w-full px-3 text-black py-2 mt-1 border rounded-lg focus:ring-2 focus:ring-blue-400 transition duration-300"></textarea>
                                                 </div>
 
                                                 <div class="col-md-6 mb-3">
                                                     <label for="call_by">Call by</label>
-                                                    <input type="text" name="call_by"
+                                                    <input type="text" wire:model="call_by"
                                                         class="w-full px-3 text-black py-2 mt-1 border rounded-lg focus:ring-2 focus:ring-blue-400 transition duration-300">
                                                 </div>
                                                {{--  <div>
@@ -186,11 +186,11 @@
                                     <div>
                                     @foreach ($callHistorys as $callHistory)
                                        @if ($callHistory->lead_id==$lead->id)
-                                       <div class="card flex">
-                                        <div class="title">Date:</div><div class="value">{{$callHistory->entered_by}}</div>
-                                        <div class="title">Call By:</div><div class="value">{{$callHistory->call_by}}</div>
-                                        <div class="title">Comment:</div><div class="value">{{$callHistory->comment}}</div>
-                                        <div class="title">Next call:</div><div class="value">{{$lead->shedule_date}}</div>
+                                       <div class="card flex" style="padding:10px">
+                                        <div class="title">Date: {{$callHistory->entered_by}}</div>
+                                        <div class="title">Call By:{{$callHistory->call_by}}</div>
+                                        <div class="title">Comment:{{$callHistory->comment}}</div>
+                                        <div class="title">Next call:{{$lead->shedule_date}}</div>
                                       </div>
                                        @endif
                                     @endforeach

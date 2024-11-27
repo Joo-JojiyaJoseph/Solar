@@ -80,6 +80,17 @@
                                 @csrf @method('delete')
                             </form>
                             @endif
+                            @if ($user->type == 'admin' || $user->type == 'branch' )
+                               <button type="button" class="btn btn-success btn-block mb-2 mt-2" data-toggle="modal"
+                                        data-target="#assign{{ $lead->id }}"
+                                        aria-label="Assign lead {{ $lead->customer_name }}">
+                                        @if($lead->technician == NULL)
+                                        Assign Technician
+                                        @else
+                                        Change Technician
+                                        @endif
+                                    </button>
+                                    @endif
 
                              @if ($user->type == 'admin' && $lead->shedule_date == '')
                             <button type="button" class="btn btn-primary btn-block mb-2 mt-2 text-nowrap"
@@ -110,7 +121,7 @@
 
                     </tr>
                     <!-- Modal for Assigning Technician -->
-                    {{-- <div class="modal fade" id="assign{{ $lead->id }}" tabindex="-1" role="dialog"
+                    <div class="modal fade" id="assign{{ $lead->id }}" tabindex="-1" role="dialog"
                     aria-labelledby="assignLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
@@ -147,7 +158,7 @@
                             </form>
                         </div>
                     </div>
-        </div> --}}
+        </div> 
 
         <!-- Modal for Assigning Technician -->
         <div class="modal fade" id="call{{ $lead->id }}" tabindex="-1" role="dialog" aria-labelledby="assignLabel"
