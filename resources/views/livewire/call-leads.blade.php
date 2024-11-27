@@ -28,7 +28,7 @@
                             <td>{{ $lead->lead_date }}</td>
                             <td>{{ $lead->branchname }}</td>
                             <td>{{ $lead->customer_name }}<br>{{ $lead->customer_address }}<br>{{ $lead->landmark }}</br>{{ $lead->contact_number }}<br>{{ $lead->alternate_number }}</br>{{ $lead->alternate_number1 }}
-    </br>{{ $lead->email }}
+                                </br>{{ $lead->email }}
                             </td>
                             <td>{{ $lead->servicename }}<br>{{ $lead->subservicename }}</td>
                             <td>{{ $lead->comments }}</td>
@@ -39,23 +39,28 @@
                                      <p class="text-nowrap">Call Sheduled on : {{ $lead->shedule_date }}</p>
                              @endif
 
-                          
+
                             @if($lead->technician != NULL)
                             @foreach($technicians as $tech)
                             @if($tech->id==$lead->technician)
-                            <p class="text-nowrap">Technician assigned : {{ $tech->name }}</p> 
+                            <p class="text-nowrap">Technician assigned : {{ $tech->name }}</p>
                             @endif
                             @endforeach
-                              
+
                             @endif
                         </td>
-                     
                                 <td>
                                     <button type="button" class="btn btn-primary btn-block mb-2" data-toggle="modal"
-                                        data-target="#reshedule{{ $lead->id }}"
+                                        data-target="#callreshedule{{ $lead->id }}"
                                         aria-label="Assignlead {{ $lead->customer_name }}">
-                                        ReShedule
-                                    </button> 
+                                       Add Call Notes
+                                    </button>
+
+                                    <button type="button" class="btn btn-primary btn-block mb-2" data-toggle="modal"
+                                    data-target="#view{{ $lead->id }}"
+                                    aria-label="Assignlead {{ $lead->customer_name }}">
+                                       View Call History
+                                   </button>
 
                                     <button type="button" class="btn btn-success btn-block mb-2" data-toggle="modal"
                                         data-target="#assign{{ $lead->id }}"
@@ -114,10 +119,10 @@
                                     </form>
                                 </div>
                             </div>
-                        </div> 
+                        </div>
 
-                        <!-- Modal for Assigning Technician -->
-                        <div class="modal fade" id="reshedule{{ $lead->id }}" tabindex="-1" role="dialog"
+                        <!-- Modal for callresdhedule -->
+                        <div class="modal fade" id="callreshedule{{ $lead->id }}" tabindex="-1" role="dialog"
                             aria-labelledby="Assignlead" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
@@ -127,11 +132,11 @@
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
-                                    <form wire:submit="shedule({{ $lead->id }})">
+                                    <form wire:submit="callshedule({{ $lead->id }})">
                                         <div class="modal-body">
                                             <div class="form-group row">
                                                 <div class="col-md-6 mb-3">
-                                                    <label for="shedule_date">date</label>
+                                                    <label for="shedule_date">Reshedule date</label>
                                                     <input type="date" wire:model="shedule_date"
                                                         class="w-full px-3 text-black py-2 mt-1 border rounded-lg focus:ring-2 focus:ring-blue-400 transition duration-300"
                                                         name="lead_date">
@@ -140,6 +145,21 @@
                                                         <span class="text-danger">{{ $message }}</span>
                                                     @enderror
                                                 </div>
+                                                <div class="col-md-6 mb-3">
+                                                    <label for="comments">comment</label>
+                                                    <textarea name="comments"
+                                                        class="w-full px-3 text-black py-2 mt-1 border rounded-lg focus:ring-2 focus:ring-blue-400 transition duration-300"></textarea>
+                                                </div>
+
+                                                <div class="col-md-6 mb-3">
+                                                    <label for="call_by">Call by</label>
+                                                    <input type="text" name="call_by"
+                                                        class="w-full px-3 text-black py-2 mt-1 border rounded-lg focus:ring-2 focus:ring-blue-400 transition duration-300">
+                                                </div>
+                                               {{--  <div>
+                                                    <label class="block text-gray-700 font-semibold">Entered By</label>
+                                                     <input type="text" name="enterd_by" class="w-full px-3 text-black py-2 mt-1 border rounded-lg focus:ring-2 focus:ring-blue-400 transition duration-300">
+                                                 </div> --}}
                                             </div>
                                         </div>
                                         <div class="modal-footer">
@@ -148,6 +168,33 @@
                                             <button type="submit" class="btn btn-primary">Shedule</button>
                                         </div>
                                     </form>
+                                </div>
+                            </div>
+                        </div>
+
+                         <!-- Modal for view -->
+                         <div class="modal fade" id="view{{ $lead->id }}" tabindex="-1" role="dialog"
+                            aria-labelledby="Assignlead" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="Assignlead">View Call History</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div>
+                                    @foreach ($callHistorys as $callHistory)
+                                       @if ($callHistory->lead_id==$lead->id)
+                                       <div class="card flex">
+                                        <div class="title">Date:</div><div class="value">{{$callHistory->entered_by}}</div>
+                                        <div class="title">Call By:</div><div class="value">{{$callHistory->call_by}}</div>
+                                        <div class="title">Comment:</div><div class="value">{{$callHistory->comment}}</div>
+                                        <div class="title">Next call:</div><div class="value">{{$lead->shedule_date}}</div>
+                                      </div>
+                                       @endif
+                                    @endforeach
+                                    </div>
                                 </div>
                             </div>
                         </div>

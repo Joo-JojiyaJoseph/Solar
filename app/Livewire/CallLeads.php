@@ -2,10 +2,11 @@
 
 namespace App\Livewire;
 use App\Models\Admin\Admin;
+use App\Models\Admin\CallHistory;
 use App\Models\Admin\Lead;
 use Carbon\Carbon;
 use App\Models\Admin\Service;
-
+use Illuminate\Http\Request;
 use Livewire\Component;
 
 
@@ -23,6 +24,7 @@ class CallLeads extends Component
     public $selectedLeadId;
     public $selectedStatus = null;
     public $shedule_date;
+    public $callHistorys ;
 
     public function loadleads(){
         $today = Carbon::today();
@@ -31,6 +33,7 @@ class CallLeads extends Component
 
         $this->services = Service::Orderby('id', 'desc')->get();
         $this->branchs = Admin::Orderby('id', 'desc')->where('type','branch')->get();
+        $this->callHistorys = CallHistory::Orderby('id', 'desc')->get();
 
         if($this->selectedStatus!=null && $this->user->type=="branch" ) {
             $this->leads = Lead::join('admins', 'admins.id', '=', 'leads.branch')
@@ -88,12 +91,12 @@ class CallLeads extends Component
          $this->dispatch('refresh-page');
      }
 
-     public function shedule($leadId)
+     public function callshedule($leadId,Request $request)
      {
-        
+
         $this->selectedLeadId=$leadId;
              $lead = Lead::find($this->selectedLeadId);
-             
+
              if ($lead) {
                  $lead->update(['shedule_date' => $this->shedule_date, 'status' => 'pending']);
                  session()->flash('message', 'Call assigned successfully.');
@@ -101,6 +104,13 @@ class CallLeads extends Component
                  $this->reset([ 'shedule_date']); // Reset values
                  $this->loadleads(); // Refresh leads data
              }
+
+             CallHistory::create([
+                'lead_id' => $leadId,
+                'comment' =>$request->comment,
+                'call_by' => $request->call_by,
+            ]);
+
          $this->dispatch('refresh-page');
      }
 
