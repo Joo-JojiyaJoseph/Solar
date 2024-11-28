@@ -7,7 +7,7 @@
 
     <div class="table-container">
         <div class="table-responsive">
-            <table id="copy-print-csv" class="table custom-table">
+            <table id="leadsTable" class="table custom-table">
                 <thead>
                     <tr>
                         <th scope="col">#</th>
@@ -212,3 +212,27 @@
         });
     </script>
 </div>
+@push('scripts')
+    <script>
+        $(document).ready(function() {
+            // Initialize DataTable
+            $('#leadsTable').DataTable({
+                processing: true,
+                serverSide: true,
+                paging: true,
+                lengthChange: true,
+                searching: true,
+                info: true,
+                order: [[0, 'desc']],
+                ajax: {
+                    url: "{{ route('lead.index') }}",
+                    type: 'GET',
+                    data: function(d) {
+                        d.status = '{{ $selectedStatus }}';
+                        d.branch = '{{ $user->id }}';
+                    }
+                }
+            });
+        });
+    </script>
+@endpush

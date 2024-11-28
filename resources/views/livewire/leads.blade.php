@@ -13,12 +13,12 @@
                 <option value="completed">Completed</option>
             </select>
         </div>
-    </div> 
+    </div>
 
 
     <div class="table-container">
         <div class="table-responsive">
-            <table id="copy-print-csv" class="table custom-table">
+            <table id="leadsTable" class="table custom-table">
                 <thead>
                     <tr>
                         <th scope="col">#</th>
@@ -99,7 +99,7 @@
                                 Call Shedule
                             </button>
                             @endif
-                          
+
                            @if ($user->type == 'technician' && $lead->status == 'pending')
                             <button type="button" class="btn btn-success btn-block"
                                 wire:click="markAsWorking({{ $lead->id }})"
@@ -158,7 +158,7 @@
                             </form>
                         </div>
                     </div>
-        </div> 
+        </div>
 
         <!-- Modal for Assigning Technician -->
         <div class="modal fade" id="call{{ $lead->id }}" tabindex="-1" role="dialog" aria-labelledby="assignLabel"
@@ -382,3 +382,27 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 </div>
+@push('scripts')
+    <script>
+        $(document).ready(function() {
+            // Initialize DataTable
+            $('#leadsTable').DataTable({
+                processing: true,
+                serverSide: true,
+                paging: true,
+                lengthChange: true,
+                searching: true,
+                info: true,
+                order: [[0, 'desc']],
+                ajax: {
+                    url: "{{ route('lead.index') }}",
+                    type: 'GET',
+                    data: function(d) {
+                        d.status = '{{ $selectedStatus }}';
+                        d.branch = '{{ $user->id }}';
+                    }
+                }
+            });
+        });
+    </script>
+@endpush
