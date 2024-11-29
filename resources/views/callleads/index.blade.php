@@ -16,7 +16,7 @@
         </div>
 
         <div class="row gutters">
-            @livewire('callleads')
+            @livewire('CallLeads')
         </div>
     </div>
 

@@ -15,10 +15,9 @@
         </div>
     </div>
 
-
     <div class="table-container">
         <div class="table-responsive">
-            <table id="leadsTable" class="table custom-table">
+            <table id="copy-print-csv" class="table custom-table">
                 <thead>
                     <tr>
                         <th scope="col">#</th>
@@ -197,8 +196,11 @@
 
         @endforeach
         </tbody>
-        </table>
 
+        </table>
+        <div class="mt-4">
+            {{ $leads->links() }}
+        </div>
         @foreach ($leads as $lead_edit)
         <div class="modal fade" id="edit{{ $lead_edit->id }}" tabindex="-1" role="dialog">
             <div class="modal-dialog modal-lg" role="document">
