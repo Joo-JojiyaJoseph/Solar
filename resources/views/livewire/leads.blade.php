@@ -17,7 +17,7 @@
 
     <div class="table-container">
         <div class="table-responsive">
-            <table id="copy-print-csv" class="table custom-table">
+            <table id="leadsTable" class="table custom-table">
                 <thead>
                     <tr>
                         <th scope="col">#</th>
@@ -36,7 +36,7 @@
                 <tbody>
                     @foreach ($leads as $lead)
                     <tr @if($lead->status == 'pending') style="background: #9d1a1a;" @endif >
-                        <th scope="row">{{ $loop->iteration }}</th>
+                        <th scope="row"> {{ ($leads->currentPage() - 1) * $leads->perPage() + $loop->iteration }}</th>
                         <td>{{ $lead->lead_date }}</td>
                         <td>{{ $lead->branchname }}</td>
                         <td>{{ $lead->customer_name }}<br>{{ $lead->customer_address }}<br>{{ $lead->landmark }}</br>{{ $lead->contact_number }}<br>{{ $lead->alternate_number }}</br>{{ $lead->alternate_number1 }}

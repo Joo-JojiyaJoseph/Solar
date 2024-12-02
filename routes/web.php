@@ -34,7 +34,7 @@ Route::get('/link', function() {
 Route::get('/clear-cache', function() {
     $exitCode = Artisan::call('config:cache');
     Artisan::call('route:clear');
-
+    Artisan::call('optimize:clear');
     Artisan::call('config:cache');
        Artisan::call('key:generate');
        echo  $exitCode;
