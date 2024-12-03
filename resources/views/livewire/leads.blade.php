@@ -17,7 +17,7 @@
 
     <div class="table-container">
         <div class="table-responsive">
-            <table id="leadsTable" class="table custom-table">
+            <table id="copy-print-csv" class="table custom-table">
                 <thead>
                     <tr>
                         <th scope="col">#</th>
@@ -388,10 +388,10 @@ document.addEventListener('DOMContentLoaded', function() {
     <script>
         $(document).ready(function() {
             // Initialize DataTable
-            $('#leadsTable').DataTable({
+            $('#copy-print-csv').DataTable({
                 processing: true,
                 serverSide: true,
-                paging: true,
+                paging: false,
                 lengthChange: true,
                 searching: true,
                 info: true,

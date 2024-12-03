@@ -1,6 +1,7 @@
 // Basic DataTable
 $(function() {
     $('#basicExample').DataTable({
+
         'iDisplayLength': 4,
         "language": {
             "lengthMenu": "Display _MENU_ Records Per Page",
@@ -12,17 +13,33 @@ $(function() {
 
 
 // FPrint/Copy/CSV
+// $(function() {
+//     $('#copy-print-csv').DataTable({
+//         dom: 'Bfrtip',
+//         buttons: [
+//             'copyHtml5',
+//             'excelHtml5',
+//             'csvHtml5',
+//             'pdfHtml5',
+//             'print'
+//         ],
+//         'iDisplayLength': 10,
+//     });
+// });
+
 $(function() {
     $('#copy-print-csv').DataTable({
+          "paging": false, // Disables pagination
+          "info": false, // Disables the info text
         dom: 'Bfrtip',
         buttons: [
-            'copyHtml5',
-            'excelHtml5',
-            'csvHtml5',
-            'pdfHtml5',
-            'print'
+            // 'copyHtml5',
+            // 'excelHtml5',
+            // 'csvHtml5',
+            // 'pdfHtml5',
+            // 'print'
         ],
-        'iDisplayLength': 10,
+        // 'iDisplayLength': 10,
     });
 });
 
