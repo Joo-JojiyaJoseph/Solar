@@ -74,6 +74,102 @@
                 <input type="tel" name="contact_number" required
                     class="w-full px-3 py-2 mt-1 border rounded-lg focus:ring-2 focus:ring-blue-400 transition duration-300">
             </div>
+{{-- <script>
+   document.addEventListener('DOMContentLoaded', function () {
+    const contactNumberInput = document.querySelector('input[name="contact_number"]');
+    const contactNumberError = document.createElement('div');
+    contactNumberError.classList.add('text-red-500', 'mt-2');
+    contactNumberInput.parentElement.appendChild(contactNumberError);
+
+    contactNumberInput.addEventListener('input', function () {
+        const contactNumber = contactNumberInput.value;
+
+        // Check if the contact number is not empty before making the request
+        if (contactNumber) {
+            fetch(`/admin/check-contact-number?contact_number=${contactNumber}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.is_taken) {
+                        contactNumberError.textContent = 'This contact number is already taken.';
+                    } else {
+                        contactNumberError.textContent = ''; // Clear error message
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    contactNumberError.textContent = 'There was an error checking the contact number.';
+                });
+        } else {
+            contactNumberError.textContent = ''; // Clear error message if input is empty
+        }
+    });
+});
+    </script> --}}
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const contactNumberInput = document.querySelector('input[name="contact_number"]');
+            const emailInput = document.querySelector('input[name="email"]');
+            const contactNumberError = document.createElement('div');
+            const emailError = document.createElement('div');
+
+            contactNumberError.classList.add('text-red-500', 'mt-2');
+            emailError.classList.add('text-red-500', 'mt-2');
+
+            contactNumberInput.parentElement.appendChild(contactNumberError);
+            emailInput.parentElement.appendChild(emailError);
+
+            // Check contact number uniqueness
+            contactNumberInput.addEventListener('input', function () {
+                const contactNumber = contactNumberInput.value;
+
+                if (contactNumber) {
+                    fetch(`/admin/check-contact-number?contact_number=${contactNumber}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.is_taken) {
+                                contactNumberError.textContent = 'This contact number is already taken.';
+                            } else {
+                                contactNumberError.textContent = ''; // Clear error message
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            contactNumberError.textContent = 'There was an error checking the contact number.';
+                        });
+                } else {
+                    contactNumberError.textContent = ''; // Clear error message if input is empty
+                }
+            });
+
+            // Check email uniqueness
+            emailInput.addEventListener('input', function () {
+                const email = emailInput.value;
+
+                if (email) {
+                    fetch(`/admin/check-email?email=${email}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.is_taken) {
+                                emailError.textContent = 'This email address is already taken.';
+                            } else {
+                                emailError.textContent = ''; // Clear error message
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            emailError.textContent = 'There was an error checking the email address.';
+                        });
+                } else {
+                    emailError.textContent = ''; // Clear error message if input is empty
+                }
+            });
+        });
+    </script>
 
             <div>
                 <label class="block text-gray-700 font-semibold">Alternate Number1</label>

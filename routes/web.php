@@ -57,7 +57,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin']], function(){
     Route::resource('services', Admin\ServiceController::class, ['names' => 'services']);
     Route::resource('subservices', Admin\SubServiceController::class, ['names' => 'subservices']);
 
-
+// web.php
+Route::get('/check-contact-number', [Admin\LeadsController::class, 'checkContactNumber']);
+Route::get('/check-email', [Admin\LeadsController::class, 'checkEmail']);
 
 
 

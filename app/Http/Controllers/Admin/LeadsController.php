@@ -77,6 +77,33 @@ class LeadsController extends Controller
         return redirect()->back()->with('success', 'Lead submitted successfully.');
     }
 
+
+    public function checkContactNumber(Request $request)
+    {
+        // Validate the contact number query parameter
+        $validatedData = $request->validate([
+            'contact_number' => 'required|numeric', // Add necessary validation for the contact number
+        ]);
+
+        // Check if the contact number exists in the database
+        $isTaken = Lead::where('contact_number', $request->contact_number)->exists();
+
+        // Return a JSON response with the result
+        return response()->json(['is_taken' => $isTaken]);
+    }
+
+    public function checkEmail(Request $request)
+{
+    $email = $request->input('email');
+
+    // Check if email already exists in the database
+    $isTaken = Lead::where('email', $email)->exists();
+
+    return response()->json(['is_taken' => $isTaken]);
+}
+
+
+
     /**
      * Display the specified resource.
      *
@@ -108,7 +135,7 @@ class LeadsController extends Controller
      */
     public function update(Request $request, $id)
     {
-      
+
         $leads = Lead::find($id);
 
         // $request->validate([
