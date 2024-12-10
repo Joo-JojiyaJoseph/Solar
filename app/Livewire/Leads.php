@@ -22,6 +22,13 @@ class Leads extends Component
     public $selectedLeadId;
     public $selectedStatus = null;
     public $shedule_date;
+    public $search = ''; // New property for search input
+
+    public function updatingSearch()
+    {
+        // Reset the pagination whenever the search input changes
+        $this->resetPage();
+    }
 
     public function loadleads()
     {
@@ -35,6 +42,15 @@ class Leads extends Component
             ->join('services', 'services.id', '=', 'leads.service')
             ->select('leads.*', 'admins.name as branchname', 'services.name as servicename');
 
+            if ($this->search) {
+                $query->where(function ($q) {
+                    $q->where('leads.customer_name', 'like', '%' . $this->search . '%')
+                      ->orWhere('leads.contact_number', 'like', '%' . $this->search . '%')
+                      ->orWhere('leads.email', 'like', '%' . $this->search . '%')
+                      ->orWhere('leads.comments', 'like', '%' . $this->search . '%');
+                });
+            }
+
         if ($this->selectedStatus) {
             $query->where('leads.status', $this->selectedStatus);
         }
@@ -44,6 +60,7 @@ class Leads extends Component
         } elseif ($this->user->type === "technician") {
             $query->where('leads.technician', $this->user->id);
         }
+
 
         $this->technicians = Admin::orderBy('id', 'asc')->where('type', 'technician')->get();
 

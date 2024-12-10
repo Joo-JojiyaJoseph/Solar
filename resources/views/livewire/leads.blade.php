@@ -1,8 +1,16 @@
 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-
+<style>
+    input.form-control.form-control-sm.selectpicker {
+    display: none !important;
+}
+    </style>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.3.2/dist/tailwind.min.css" rel="stylesheet">
     <div class="d-flex justify-content-end"> <!-- Use Flexbox to align items to the right -->
+        <div class="w-25 mr-2">
+            <label for="searchField">Search:</label>
+            <input type="text" id="searchField" class="form-control" placeholder="Search..." wire:model.live="search">
+        </div>
         <div class="mb-3 w-25"> <!-- Remove text-write class as it was a typo -->
             <label for="statusFilter">Filter by Status:</label>
             <select wire:model.live="selectedStatus" class="form-control"> <!-- Set width -->
@@ -293,7 +301,7 @@
                                 @endforeach
                             </select>
                         </div>
-
+{{--
                         <script>
                         document.addEventListener('DOMContentLoaded', function() {
                             const serviceSelect = document.querySelector('select[name="service"]');
@@ -339,7 +347,7 @@
                                 }
                             });
                         });
-                        </script>
+                        </script> --}}
 
 
                         <div>
@@ -384,7 +392,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 </div>
-@push('scripts')
+{{-- @push('scripts')
     <script>
         $(document).ready(function() {
             // Initialize DataTable
@@ -393,7 +401,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 serverSide: true,
                 paging: false,
                 lengthChange: true,
-                searching: true,
+                searching: false,
                 info: true,
                 order: [[0, 'desc']],
                 ajax: {
@@ -407,4 +415,4 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     </script>
-@endpush
+@endpush --}}
