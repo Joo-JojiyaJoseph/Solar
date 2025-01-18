@@ -25,7 +25,7 @@
 
     <div class="table-container">
         <div class="table-responsive">
-            <table id="copy-print-csv" class="table custom-table">
+            <table id="leadsTable" class="table custom-table">
                 <thead>
                     <tr>
                         <th scope="col">#</th>
@@ -167,40 +167,41 @@
                     </div>
         </div>
 
-        <!-- Modal for Assigning Technician -->
-        <div class="modal fade" id="call{{ $lead->id }}" tabindex="-1" role="dialog" aria-labelledby="assignLabel"
-            aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="assignLabel">Assign Call</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <form wire:submit="shedule({{ $lead->id }})">
-                        <div class="modal-body">
-                            <div class="form-group row">
-                                <div class="col-md-6 mb-3">
-                                    <label for="shedule_date">date</label>
-                                    <input type="date" wire:model="shedule_date"
-                                        class="w-full px-3 text-black py-2 mt-1 border rounded-lg focus:ring-2 focus:ring-blue-400 transition duration-300"
-                                        name="lead_date">
-                                    </select>
-                                    @error('shedule_date')
-                                    <span class="text-danger">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Shedule</button>
-                        </div>
-                    </form>
-                </div>
+      
+<div class="modal fade" id="call{{ $lead->id }}" tabindex="-1" role="dialog" aria-labelledby="assignLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="assignLabel">Assign Call</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
+            <!-- Using wire:click for passing the leadId -->
+            <form wire:submit.prevent="shedule">
+                <div class="modal-body">
+                    <div class="form-group row">
+                        <div class="col-md-6 mb-3">
+                            <label for="shedule_date">Date</label>
+                            <input type="date" wire:model="shedule_date"
+                                   class="w-full px-3 text-black py-2 mt-1 border rounded-lg focus:ring-2 focus:ring-blue-400 transition duration-300"
+                                   name="shedule_date">
+                            @error('shedule_date')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <!-- Passing leadId to method via wire:click -->
+                    <button type="submit" wire:click="shedule({{ $lead->id }})" class="btn btn-primary">Schedule</button>
+                </div>
+            </form>
         </div>
+    </div>
+</div>
+
 
         @endforeach
         </tbody>
@@ -391,6 +392,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 </script>
+
 </div>
 {{-- @push('scripts')
     <script>
